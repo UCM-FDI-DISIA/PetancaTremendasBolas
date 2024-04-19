@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Petanca", "project\Petanca.vcxproj", "{9991FAEE-D88E-4EAE-98D8-808F049D94CF}"
+EndProject
+Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "Petanca_d", "bin\Petanca_d.exe", "{1C712A91-677F-4687-BD89-6DBD35F00F79}"
+	ProjectSection(DebuggerProjectSystem) = preProject
+		Executable = .\bin\Petanca_d.exe
+		StartingDirectory = .\bin
+	EndProjectSection
+EndProject
+Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "Petanca_r", "bin\Petanca_r.exe", "{F0ADC029-9134-418C-8D1A-CC136FCBF9D2}"
+	ProjectSection(DebuggerProjectSystem) = preProject
+		Executable = .\bin\Petanca.exe
+		StartingDirectory = .\bin
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9991FAEE-D88E-4EAE-98D8-808F049D94CF}.Debug|x64.ActiveCfg = Debug|x64
+		{9991FAEE-D88E-4EAE-98D8-808F049D94CF}.Debug|x64.Build.0 = Debug|x64
+		{9991FAEE-D88E-4EAE-98D8-808F049D94CF}.Release|x64.ActiveCfg = Release|x64
+		{9991FAEE-D88E-4EAE-98D8-808F049D94CF}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E34009DF-0589-4822-8B50-3316D2E2197E}
+	EndGlobalSection
+EndGlobal
