@@ -27,6 +27,10 @@ Global
 		{9991FAEE-D88E-4EAE-98D8-808F049D94CF}.Debug|x64.Build.0 = Debug|x64
 		{9991FAEE-D88E-4EAE-98D8-808F049D94CF}.Release|x64.ActiveCfg = Release|x64
 		{9991FAEE-D88E-4EAE-98D8-808F049D94CF}.Release|x64.Build.0 = Release|x64
+		{1C712A91-677F-4687-BD89-6DBD35F00F79}.Debug|x64.ActiveCfg = Release
+		{1C712A91-677F-4687-BD89-6DBD35F00F79}.Release|x64.ActiveCfg = Release
+		{F0ADC029-9134-418C-8D1A-CC136FCBF9D2}.Debug|x64.ActiveCfg = Release
+		{F0ADC029-9134-418C-8D1A-CC136FCBF9D2}.Release|x64.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
