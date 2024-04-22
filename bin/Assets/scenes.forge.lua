@@ -53,6 +53,7 @@ local scenes = {
                 }
         },
         cam = {
+            handler = "cam",
             components = {
                 Transform = {
                     position = {0, 50, 140},
