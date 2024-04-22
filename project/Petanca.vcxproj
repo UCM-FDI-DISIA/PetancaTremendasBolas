@@ -94,6 +94,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ComponentRegisterer.cpp" />
+    <ClCompile Include="..\SRC\ShootComponent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\SRC\ShootComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,3 +1,4 @@
+#pra
 #include "Component.h"
 
 class ShootComponent 
