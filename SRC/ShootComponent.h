@@ -12,8 +12,11 @@ class ShootComponent : public Component
 private:
 	bool positioning;
 	bool strengthControl;
+	bool invert;
 	float cameraOffset;
 	float rotation;
+	float maxForce;
+	float force;
 	forge::Vector3 initialPos;
 
 	Camera* cam;
@@ -32,5 +35,6 @@ public:
 	void deactivatePositioning();
 	void activateStrengthControl();
 	void deactivateStrengthControl();
+	bool hasShot();
 }; 
 #endif // SHOOT_COMPONENT_H_

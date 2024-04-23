@@ -5,7 +5,8 @@
 #include <Entity.h>
 #include <Input.h>
 #include <Transform.h>
-
+#include <RigidBody.h>
+#define PI 3.14159265359
 const std::string ShootComponent::id = "ShootComponent";
 
 ShootComponent::ShootComponent():input(Input::GetInstance()), cameraOffset(0), rotation(0){
@@ -50,13 +51,46 @@ void ShootComponent::update() {
 		if (input->keyDown(K_DOWN)) {
 			// Mover abajo
 		}
+		if (input->keyDown(K_SPACE)) {
+			// Disparar
+			positioning = false;
+			strengthControl = true;
+		}
 	}
+
 	// Si se esta controlando la fuerza
 	if (strengthControl) {
 		// Controlar la fuerza
 		// sacar el vector al que esta mirando la camara y aplicar una fuerza en esa direccion 
 		// con el vector unitario por la fuerza que se le quiera aplicar dejando presionado el espacio
 		// La fuerza variara con una funcion sinusoidal para bajar a 0 y subir a un maximo y luego volver a bajar a 0
+		if (input->keyPressed(K_SPACE)) {
+			//Se puede cambiar por un valor en el futuro
+			if (!invert) {
+				force++;
+			}
+			else {
+				force--;
+			}
+			if (force > maxForce) {
+				force = maxForce;
+				invert = true;
+			}
+			else if (force < 0) {
+				force = 0;
+				invert = false;
+			}
+		}
+		if (input->keyUp(K_SPACE)) {
+			// Disparar
+			// Aplicar fuerza
+			forge::Vector3 forceVector = camTransform->getForward();
+			forceVector.normalize();
+			forceVector = forceVector * force;
+			entity->getComponent<RigidBody>()->applyForce(forceVector);
+			force = 0;
+			strengthControl = false;
+		}
 	}
 	
 }
@@ -75,4 +109,8 @@ void ShootComponent::activateStrengthControl() {
 
 void ShootComponent::deactivateStrengthControl() {
 	strengthControl = false;
+}
+
+bool ShootComponent::hasShot() {
+	return positioning || strengthControl;
 }
