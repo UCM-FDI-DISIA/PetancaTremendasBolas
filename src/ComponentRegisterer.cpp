@@ -1,6 +1,7 @@
 #include "Factory.h"
 #include "ForgeImport.h"
 #include "ShootComponent.h"
+#include "TestComponent.h"
 
 FORGE_IMPORT void registerComponents(Factory& f) {
 	/**
@@ -8,5 +9,6 @@ FORGE_IMPORT void registerComponents(Factory& f) {
         * hacer la siguiente llamada:
         * f.registerComponent<ComponentName>();
         */
-    f.registerComponent<ShootComponent>();
+    //f.registerComponent<ShootComponent>();
+    f.registerComponent<TestComponent>();
 }

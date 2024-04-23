@@ -4,13 +4,16 @@
 #include <Scene.h>
 #include <Entity.h>
 #include <Input.h>
+#include <Transform.h>
 
 const std::string ShootComponent::id = "ShootComponent";
 
-ShootComponent::ShootComponent():input(Input::GetInstance()) {
-	positioning = false;
+ShootComponent::ShootComponent():input(Input::GetInstance()), cameraOffset(0), rotation(0){
+	positioning = true;
 	strengthControl = false;
 	cam = nullptr;
+	camTransform = nullptr;
+	initialPos = forge::Vector3(0, 0, 0);
 }
 
 ShootComponent::~ShootComponent() {
@@ -19,7 +22,9 @@ ShootComponent::~ShootComponent() {
 bool ShootComponent::initComponent(ComponentData* data) {
 	// Inicializar el componente
 	cam = SceneManager::GetInstance()->getActiveScene()->getEntityByHandler("cam")->getComponent<Camera>();
-	
+	camTransform= SceneManager::GetInstance()->getActiveScene()->getEntityByHandler("cam")->getComponent<Transform>();
+	cameraOffset = forge::Vector3(camTransform->getPosition() - entity->getComponent<Transform>()->getPosition()).magnitude();
+	initialPos = camTransform->getPosition();
 	return true;
 }
 
@@ -29,11 +34,15 @@ void ShootComponent::update() {
 		// Posicionar
 		if (input->keyDown(K_LEFT)) {
 			// Mover a la izquierda
-			//Mover la camara con transform de la camara??? 
-			//Y luego cambiar al modo de disparo con strengthControl
+			rotation += 2;
+			camTransform->setPosition(forge::Vector3(initialPos.getX() * cos(rotation), initialPos.getY(), initialPos.getZ() * sin(rotation)));
+			camTransform->rotateY(2);
 		}
 		if (input->keyDown(K_RIGHT)) {
 			// Mover a la derecha
+			rotation -= 2;
+			camTransform->setPosition(forge::Vector3(initialPos.getX() * cos(rotation), initialPos.getY(), initialPos.getZ() * sin(rotation)));
+			camTransform->rotateY(-2);
 		}
 		if (input->keyDown(K_UP)) {
 			// Mover arriba
