@@ -7,6 +7,7 @@
 #include <Transform.h>
 #include <RigidBody.h>
 #define PI 3.14159265359
+
 const std::string ShootComponent::id = "ShootComponent";
 
 ShootComponent::ShootComponent():input(Input::GetInstance()), cameraOffset(0), rotation(0){
