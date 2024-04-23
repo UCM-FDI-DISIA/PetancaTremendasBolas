@@ -25,7 +25,9 @@ local scenes = {
                      Collider = {
                         scale = {5, 10 , 30},
                         shapeType = "Cube"
-                    }
+                    },
+                    TestComponent = 0
+                    
                 }
         },
         pared2 = {
