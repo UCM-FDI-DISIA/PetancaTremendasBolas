@@ -1,6 +1,11 @@
 #ifndef GAME_MANAGER_H_
 #define GAME_MANAGER_H_
 #include <Component.h>
+#include <Vector3.h>
+
+class Entity;
+class Transform;
+class Scene;
 
 class GameManager:public Component {
 private:
@@ -11,12 +16,16 @@ private:
 	int myBallCounterP1;
 	int myBallCounterP2;
 	int maxBalls;
+	int points1;
+	int points2;
+	float pointRadius;
 	std::vector<Entity*> ballsP1;
 	std::vector<Entity*> ballsP2;
 
-	forge::Vector3 iniPos;
+	Transform* bolichePos;
+	float cameraOffset;
 	Scene* scene;
-	Entity* cam;
+	Transform* cam;
 public:
 	static const std::string id;
 
@@ -25,6 +34,7 @@ public:
 
 	bool initComponent(ComponentData* data) override;
 	void update() override;
+	int calculatePoints(bool player1);
 
 };
 #endif // !GAME_MANAGER_H_

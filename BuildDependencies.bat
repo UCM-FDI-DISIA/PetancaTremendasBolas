@@ -3,7 +3,7 @@
 set WORKDIR=.\bin
 set ENGINEBIN=.\Dependencies\FORGE\FORGE\bin
 
-git submodule update --init --recursive
+
 
 echo Fin de la actualizacion de submodulos
 

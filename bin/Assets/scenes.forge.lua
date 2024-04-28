@@ -16,6 +16,19 @@ local scenes = {
                     }
                 }
         },
+        player = {
+            handler = "Player",
+                components = {
+                    Transform = {
+                        position = {0, 20, 0},
+                    },
+                     RigidBody = {
+                        scale = {5, 5 , 5},
+                        shapeType = "Cube"
+                    },
+                    ShootComponent=0
+                }
+        },
         pared1 = {
             handler = "pared1",
                 components = {
@@ -26,7 +39,6 @@ local scenes = {
                         scale = {5, 10 , 30},
                         shapeType = "Cube"
                     },
-                    TestComponent = 0
                     
                 }
         },

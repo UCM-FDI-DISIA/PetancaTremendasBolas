@@ -31,10 +31,10 @@ public:
 
 	void update() override;
 	
-	void activatePositioning();
+	/*void activatePositioning();
 	void deactivatePositioning();
 	void activateStrengthControl();
 	void deactivateStrengthControl();
-	bool hasShot();
+	bool hasShot();*/
 }; 
 #endif // SHOOT_COMPONENT_H_
