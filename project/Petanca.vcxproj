@@ -96,6 +96,7 @@
     <ClCompile Include="..\src\ComponentRegisterer.cpp" />
     <ClCompile Include="..\SRC\GameManager.cpp" />
     <ClCompile Include="..\SRC\ShootComponent.cpp" />
+    <ClCompile Include="..\SRC\TestComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SRC\GameManager.h" />
