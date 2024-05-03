@@ -4,6 +4,17 @@ local blueprints = {
 
 local scenes = {
     Test = {
+        suelo = {
+            handler = "Suelo",
+                components = {
+                    Transform = {
+                        position = {0, 0, 0}
+                    },
+                    Collider = {
+                        scale = {1000, 5, 1000}
+                    }
+                }
+        },
 
         player = {
             handler = "Player",
@@ -14,15 +25,14 @@ local scenes = {
                     RigidBody = {
                         scale = {5, 5, 5},
                         mass = 0.01,
-                        gravity = {0,0.01,0},
+                        gravity = {0,0,0},
                         friction = 0,
                         restitution = 0,
                         shapeType = "Cube",
                         static = false,
                         layer = "ALL"
                     },
-                    ShootComponent=0,
-                    TestComponent=0
+                    ShootComponent=0
                 }
         },
         cam = {

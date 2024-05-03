@@ -7,20 +7,26 @@
 class Camera;
 class Input;
 class Transform;
+class RigidBody;
 class ShootComponent : public Component
 {
 private:
+	bool onStart;
 	bool positioning;
 	bool strengthControl;
 	bool invert;
 	float cameraOffset;
-	float rotation;
+	float ballOffset;
+	int rotation;
+	int ballRotation;
 	float maxForce;
 	float force;
 	forge::Vector3 initialPos;
+	forge::Vector3 ballInitialPosition;
 
 	Camera* cam;
 	Transform* camTransform;
+	RigidBody* myRigidBody;
 	Input* input;
 public:
 	static const std::string id;
@@ -31,10 +37,10 @@ public:
 
 	void update() override;
 	
-	/*void activatePositioning();
+	void activatePositioning();
 	void deactivatePositioning();
 	void activateStrengthControl();
 	void deactivateStrengthControl();
-	bool hasShot();*/
+	bool hasShot();
 }; 
 #endif // SHOOT_COMPONENT_H_
