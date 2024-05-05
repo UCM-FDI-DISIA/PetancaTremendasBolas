@@ -16,13 +16,13 @@ private:
 	bool strengthControl;
 	bool invert;
 	float cameraOffset;
-	float ballOffset;
 	int rotation;
 	int ballRotation;
 	float maxForce;
 	float force;
 	forge::Vector3 initialPos;
 	forge::Vector3 ballInitialPosition;
+	forge::Vector3 forward;
 
 	Camera* cam;
 	Transform* camTransform;

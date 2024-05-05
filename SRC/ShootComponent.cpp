@@ -11,8 +11,7 @@
 
 const std::string ShootComponent::id = "ShootComponent";
 
-ShootComponent::ShootComponent() :input(Input::GetInstance()), cameraOffset(0), rotation(0), force(0), invert(0), ballRotation(0), onStart(true),
-ballOffset(0) {
+ShootComponent::ShootComponent() :input(Input::GetInstance()), cameraOffset(0), rotation(0), force(0), invert(0), ballRotation(0), onStart(true){
 	positioning = true;
 	strengthControl = false;
 	cam = nullptr;
@@ -20,6 +19,7 @@ ballOffset(0) {
 	initialPos = forge::Vector3(std::numeric_limits<int>::max(), std::numeric_limits<int>::max(), std::numeric_limits<int>::max());
 	myRigidBody = nullptr;
 	ballInitialPosition = forge::Vector3(0, 0, 0);
+	forward = forge::Vector3(0, 0, 1);
 	//serializer(maxForce, "maxForce");
 }
 
@@ -37,9 +37,8 @@ void ShootComponent::update() {
 	if(cam==nullptr)cam = SceneManager::GetInstance()->getActiveScene()->getEntityByHandler("cam")->getComponent<Camera>();
 	if (camTransform == nullptr)camTransform = SceneManager::GetInstance()->getActiveScene()->getEntityByHandler("cam")->getComponent<Transform>();
 	if (onStart) {
-		cameraOffset = forge::Vector3(camTransform->getPosition().getX() - entity->getComponent<Transform>()->getPosition().getX(), 0,
-			camTransform->getPosition().getZ() - entity->getComponent<Transform>()->getPosition().getZ()).magnitude();
-		ballOffset= forge::Vector3(0, camTransform->getPosition().getY() - entity->getComponent<Transform>()->getPosition().getY(),
+		cameraOffset = forge::Vector3(camTransform->getPosition().getX() - entity->getComponent<Transform>()->getPosition().getX(), 
+			camTransform->getPosition().getY() - entity->getComponent<Transform>()->getPosition().getY(),
 			camTransform->getPosition().getZ() - entity->getComponent<Transform>()->getPosition().getZ()).magnitude();
 		onStart = false;
 	}
@@ -47,6 +46,9 @@ void ShootComponent::update() {
 	if(initialPos.getX()== std::numeric_limits<int>::max())initialPos = camTransform->getPosition();
 	//camTransform->lookAt(scene->getEntityByHandler("Player")->getComponent<Transform>()->getPosition());
 	// Si se esta posicionando
+	// Formula para rotar la camara completamente al rededor : 
+	// camTransform->setPosition(forge::Vector3(cameraOffset * sin((float)rotation/180*PI) * abs(cos(ballRotation)), 
+	//	cameraOffset* sin((float)ballRotation / 180 * PI), cameraOffset* cos((float)rotation / 180 * PI)* abs(cos(ballRotation))));
 	if (positioning) {
 		// Posicionar
 		if (input->keyPressed(K_LEFT)) {
@@ -54,24 +56,32 @@ void ShootComponent::update() {
 			rotation += 2;
 			rotation %= 360;
 			camTransform->setPosition(forge::Vector3(cameraOffset * sin((float)rotation/180*PI), initialPos.getY(), cameraOffset * cos((float)rotation / 180 * PI)));
+			forward = forge::Vector3(cameraOffset * sin((float)rotation / 180 * PI), 0, cameraOffset * cos((float)rotation / 180 * PI)).normalized();
+			forge::Vector3 target = scene->getEntityByHandler("Player")->getComponent<Transform>()->getPosition();
+			camTransform->lookAt(forge::Vector3(target.getX(), initialPos.getY(),target.getZ()));
 		}
 		if (input->keyPressed(K_RIGHT)) {
 			// Mover a la derecha
 			rotation -= 2;
 			rotation %= 360;
 			camTransform->setPosition(forge::Vector3(cameraOffset * sin((float)rotation / 180 * PI), initialPos.getY(), cameraOffset * cos((float)rotation / 180 * PI)));
+			forward = forge::Vector3(cameraOffset * sin((float)rotation / 180 * PI), 0, cameraOffset * cos((float)rotation / 180 * PI)).normalized();
+			forge::Vector3 target = scene->getEntityByHandler("Player")->getComponent<Transform>()->getPosition();
+			camTransform->lookAt(forge::Vector3(target.getX(), initialPos.getY(), target.getZ()));
 		}
 		if (input->keyPressed(K_UP)) {
 			// Mover arriba
 			ballRotation += 2;
 			ballRotation %= 360;
-			myRigidBody->setPosition(forge::Vector3(ballInitialPosition.getX(), ballOffset * sin((float)ballRotation / 180 * PI), ballOffset * cos((float)ballRotation / 180 * PI)));
+			myRigidBody->setPosition(forge::Vector3(cameraOffset * cos((float)ballRotation / 180 * PI)*forward.getX(),
+				cameraOffset * sin((float)ballRotation / 180 * PI), cameraOffset * cos((float)ballRotation / 180 * PI)*forward.getZ()));
 		}
 		if (input->keyPressed(K_DOWN)) {
 			// Mover abajo
 			ballRotation -= 2;
 			ballRotation %= 360;
-			myRigidBody->setPosition(forge::Vector3(ballInitialPosition.getX(), ballOffset * sin((float)ballRotation / 180 * PI), ballOffset * cos((float)ballRotation / 180 * PI)));
+			myRigidBody->setPosition(forge::Vector3(cameraOffset * cos((float)ballRotation / 180 * PI) * forward.getX(),
+				cameraOffset * sin((float)ballRotation / 180 * PI), cameraOffset * cos((float)ballRotation / 180 * PI) * forward.getZ()));
 		}
 		if (input->keyDown(K_SPACE)) {
 			// Disparar
