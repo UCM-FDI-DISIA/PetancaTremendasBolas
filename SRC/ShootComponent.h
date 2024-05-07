@@ -23,6 +23,7 @@ private:
 	forge::Vector3 cameraPos;
 	forge::Vector3 ballInitialPosition;
 	forge::Vector3 forward;
+	forge::Vector3 prevGrav;
 
 	Camera* cam;
 	Transform* camTransform;

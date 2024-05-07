@@ -7,11 +7,13 @@
 #include <Transform.h>
 #include <RigidBody.h>
 #include <limits>
+#include <Serializer.h>
 #define PI 3.14159265359
 
 const std::string ShootComponent::id = "ShootComponent";
 
-ShootComponent::ShootComponent() :input(Input::GetInstance()), cameraOffset(0), rotation(0), force(0), invert(0), ballRotation(0), onStart(true){
+ShootComponent::ShootComponent() :input(Input::GetInstance()), cameraOffset(0), rotation(0), force(0), invert(0), ballRotation(0), onStart(true),
+prevGrav(0,0,0), maxForce(0){
 	positioning = true;
 	strengthControl = false;
 	cam = nullptr;
@@ -20,7 +22,7 @@ ShootComponent::ShootComponent() :input(Input::GetInstance()), cameraOffset(0), 
 	myRigidBody = nullptr;
 	ballInitialPosition = forge::Vector3(0, 0, 0);
 	forward = forge::Vector3(0, 0, -1);
-	//serializer(maxForce, "maxForce");
+	serializer(maxForce, "maxForce");
 }
 
 ShootComponent::~ShootComponent() {
@@ -28,6 +30,8 @@ ShootComponent::~ShootComponent() {
 
 bool ShootComponent::initComponent(ComponentData* data) {
 	myRigidBody = entity->getComponent<RigidBody>();
+	prevGrav = myRigidBody->getGravity();
+	myRigidBody->setGravity(forge::Vector3(0, 0, 0));
 	ballInitialPosition = entity->getComponent<Transform>()->getPosition();
 	return true;
 }
@@ -78,14 +82,14 @@ void ShootComponent::update() {
 			forge::Vector3 target = myRigidBody->getPosition();
 			camTransform->lookAtInterpolated(forge::Vector3(target.getX(), cameraPos.getY(), target.getZ()), 0.1);
 		}
-		if (input->keyPressed(K_UP)) {
+		if (input->keyPressed(K_UP) && ballRotation <= 45) {
 			// Mover arriba
 			ballRotation += 2;
 			ballRotation %= 360;
 			myRigidBody->setPosition(forge::Vector3(cameraPos.getX() + cameraOffset * cos((float)ballRotation / 180 * PI) * forward.getX(),
 				cameraPos.getY() + cameraOffset * sin((float)ballRotation / 180 * PI), cameraPos.getZ() + cameraOffset * cos((float)ballRotation / 180 * PI)*forward.getZ()));
 		}
-		if (input->keyPressed(K_DOWN)) {
+		if (input->keyPressed(K_DOWN)&& ballRotation >= -45) {
 			// Mover abajo
 			ballRotation -= 2;
 			ballRotation %= 360;
@@ -121,16 +125,21 @@ void ShootComponent::update() {
 				force = 0;
 				invert = false;
 			}
+			std::cout << force << std::endl;
 		}
 		if (input->keyUp(K_SPACE)) {
 			// Disparar
 			// Aplicar fuerza
-			forge::Vector3 forceVector = camTransform->getForward();
+			forge::Vector3 forceVector = camTransform->getForward() * -1.0f;
 			forceVector.normalize();
+			forceVector = forge::Vector3(forceVector.getX() * cos(ballRotation),
+				forceVector.getY() * sin(ballRotation), forceVector.getZ() * cos(ballRotation));
 			forceVector = forceVector * force;
-			entity->getComponent<RigidBody>()->applyForce(forceVector);
+			myRigidBody->setGravity(prevGrav);
+			myRigidBody->applyForce(forceVector);
 			force = 0;
 			strengthControl = false;
+			this->setEnabled(false);
 		}
 	}
 	

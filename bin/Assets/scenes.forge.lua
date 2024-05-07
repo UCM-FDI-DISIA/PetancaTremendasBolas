@@ -42,14 +42,16 @@ local scenes = {
                     RigidBody = {
                         scale = {5, 5, 5},
                         mass = 0.01,
-                        gravity = {0,0,0},
-                        friction = 0,
+                        gravity = {0,-9.8,0},
+                        friction = 3,
                         restitution = 0,
                         shapeType = "Cube",
                         static = false,
                         layer = "ALL"
                     },
-                    ShootComponent=0
+                    ShootComponent = {
+                        maxForce=1000
+                    }
                 }
         },
         cam = {
