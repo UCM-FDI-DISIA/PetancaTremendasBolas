@@ -44,7 +44,7 @@ local prefabs = {
 local scenes = {
     Test = {
         jugador = {
-            blueprint = "player",
+            blueprint = "player"
         },
         cam = {
             components = {
@@ -107,44 +107,8 @@ local scenes = {
                     fontHeight = 100
                 }
             }
-        },
-        imagen1 = {
-            components = {
-                RectTransform = {
-                    position = {20, 100},
-                    scale = {200, 200}
-                },
-                Image = {
-                    depth = 0,
-                    texture = "panko.png"
-                }
-            }
-        },
-        imagen2 = {
-            components = {
-                RectTransform = {
-                    position = {420, 100},
-                    scale = {200, 300}
-                },
-                Image = {
-                    depth = 1,
-                    texture = "dinocat.png"
-                }
-            }
-        },
-        imagen3 = {
-            components = {
-                RectTransform = {
-                    position = {220, 100},
-                    scale = {200, 200}
-                },
-                Image = {
-                    depth = 2,
-                    id = "imagen3",
-                    texture = "dinoocat.png"
-                }
-            }
         }
+        
     },
     Play = {
         jugador = {

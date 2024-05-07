@@ -1,5 +1,22 @@
 local blueprints = {
-
+    Ball = {
+        components = {
+            Transform = {
+                position = {0, 0, 0}
+            },
+            RigidBody = {
+                scale = {5, 5, 5},
+                mass = 0.01,
+                gravity = {0,0,0},
+                friction = 0,
+                restitution = 0,
+                shapeType = "Sphere",
+                static = false,
+                layer = "ALL"
+            },
+            ShootComponent=0 
+        }
+    }
 }
 
 local scenes = {

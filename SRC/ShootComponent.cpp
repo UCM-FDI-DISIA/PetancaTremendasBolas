@@ -63,7 +63,7 @@ void ShootComponent::update() {
 				cameraPos.getY() + cameraOffset * sin((float)ballRotation / 180 * PI), cameraPos.getZ() + cameraOffset * cos((float)ballRotation / 180 * PI) * forward.getZ()));
 
 			forge::Vector3 target = myRigidBody->getPosition();
-			camTransform->lookAt(forge::Vector3(target.getX(), cameraPos.getY(), target.getZ()));
+			camTransform->lookAtInterpolated(forge::Vector3(target.getX(), cameraPos.getY(), target.getZ()), 0.1);
 		}
 		if (input->keyPressed(K_RIGHT)) {
 			// Mover a la derecha
@@ -76,7 +76,7 @@ void ShootComponent::update() {
 				cameraPos.getY() + cameraOffset * sin((float)ballRotation / 180 * PI), cameraPos.getZ() + cameraOffset * cos((float)ballRotation / 180 * PI) * forward.getZ()));
 
 			forge::Vector3 target = myRigidBody->getPosition();
-			camTransform->lookAt(forge::Vector3(target.getX(), cameraPos.getY(), target.getZ()));
+			camTransform->lookAtInterpolated(forge::Vector3(target.getX(), cameraPos.getY(), target.getZ()), 0.1);
 		}
 		if (input->keyPressed(K_UP)) {
 			// Mover arriba
