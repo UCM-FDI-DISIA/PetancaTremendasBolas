@@ -95,11 +95,35 @@
   <ItemGroup>
     <ClCompile Include="..\src\ComponentRegisterer.cpp" />
     <ClCompile Include="..\SRC\GameManager.cpp" />
+    <ClCompile Include="..\SRC\RotateComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="..\SRC\SelectionArrowComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="..\SRC\SelectionManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="..\SRC\ShootComponent.cpp" />
     <ClCompile Include="..\SRC\TestComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SRC\GameManager.h" />
+    <ClInclude Include="..\SRC\RotateComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="..\SRC\SelectionArrowComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="..\SRC\SelectionManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="..\SRC\ShootComponent.h" />
     <ClInclude Include="..\SRC\TestComponent.h" />
   </ItemGroup>

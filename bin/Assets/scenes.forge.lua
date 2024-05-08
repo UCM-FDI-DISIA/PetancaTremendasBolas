@@ -86,10 +86,116 @@ local scenes = {
                     position = {20, 80, 0}
                 },
                 Light = {
-                    type = 0 
+                    type = 0
                 }
             }
         }
+    },
+
+    SkinSelection = {
+        previewBall = {
+            handler = "PreviewBall",
+            components = {
+                Transform = {
+                    position = {0, 0, 0}
+                },
+                Mesh = {
+                    mesh = "Bola.mesh"
+                },
+                RotateComponent = {
+					rotationSpeed = 60
+				}
+            }
+        },
+        selectionManager = {
+            handler = "SelectionManager",
+            components = {
+                Transform = {
+                    position = {0, 0, 0}
+                },
+                SelectionManager = {
+                    materials = {
+						"MatPePa",
+						"MatRojo",
+                        "MatCarlos",
+                        "MatRome",
+                        "MatBolaDragon",
+                        "MatTenis"
+					}
+                }
+            }
+        },
+        cam = {
+            handler = "cam",
+            components = {
+                Transform = {
+                    position = {0, 0, 10}
+                },
+                Camera = {
+                    nearClipDistance = 1,
+                    autoAspectRatio = true,
+                    backgroundColor = {0.6, 0.3, 0.3}
+                },
+                AudioListener = 0
+            }
+        },
+        leftArrow = {
+            handler = "Arrow",
+			components = {
+				RectTransform = {
+					position = {100, 200},
+                    scale = {100, 100}
+				},
+                Button = {
+                    out = "panko.png",
+                    clicked = "panko.png",
+                    hover = "panko.png",
+					onClick = function (inv)
+                        print("holi");
+	                    inv:invoke("moveLeft");
+                        print("holi2");
+                    end 
+				}
+			}
+		},
+        rightArrow = {
+            handler = "rArrow",
+			components = {
+				RectTransform = {
+					position = {450, 200},
+                    scale = {100, 100}
+				},
+                Button = {
+                    out = "panko.png",
+                    clicked = "panko.png",
+                    hover = "panko.png",
+					onClick = function (inv)
+                        print("holi");
+	                    inv:invoke("moveRight");
+                        print("holi2");
+                    end 
+				}
+			}
+		},
+        selectButton = {
+            handler = "selectButton",
+			components = {
+				RectTransform = {
+					position = {275, 350},
+                    scale = {100, 100}
+				},
+                Button = {
+                    out = "panko.png",
+                    clicked = "panko.png",
+                    hover = "panko.png",
+					onClick = function (inv)
+                        print("holi");
+	                    inv:invoke("selectSkin");
+                        print("holi2");
+                    end 
+				}
+			}
+		}
     }
 }
 
