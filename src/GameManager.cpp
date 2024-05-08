@@ -27,7 +27,7 @@ bool GameManager::initComponent(ComponentData* data) {
 		ballsP2.push_back(sceneManager.instantiateBlueprint("ball"));
 		ballsP2[i]->setEnabled(false);
 	}*/
-	sceneManager.instantiateBlueprint("boliche");
+	bolichePos = sceneManager.instantiateBlueprint("boliche")->getComponent<Transform>();
 	cam = sceneManager.getActiveScene()->getEntityByHandler("cam")->getComponent<Transform>();
 	initialCamPos = cam->getPosition();
 	return true;
