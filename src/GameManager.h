@@ -17,6 +17,7 @@ private:
 	bool firstTurn;
 	bool turnStarted;
 	bool cinematicCamera;
+	bool init;
 	int myBallCounterP1;
 	int myBallCounterP2;
 	int maxBalls;
@@ -27,7 +28,7 @@ private:
 	std::vector<Entity*> ballsP1;
 	std::vector<Entity*> ballsP2;
 	std::vector<std::string> sceneNames;
-	Transform* bolichePos;
+	Entity* boliche;
 	float cameraOffset;
 	Transform* cam;
 	forge::Vector3 initialCamPos;

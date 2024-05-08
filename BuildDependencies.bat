@@ -15,5 +15,6 @@ xcopy /y "%ENGINEBIN%\*.dll" "%WORKDIR%"
 xcopy /y "%ENGINEBIN%\plugins.cfg" "%WORKDIR%"
 xcopy /y "%ENGINEBIN%\FORGE.exe" "%WORKDIR%"
 xcopy /y "%ENGINEBIN%\FORGE_d.exe" "%WORKDIR%"
+xcopy /y "%ENGINEBIN%\gamecontrollerdb.txt" "%WORKDIR%"
 
 pause
