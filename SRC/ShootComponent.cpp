@@ -130,7 +130,7 @@ void ShootComponent::update() {
 		if (input->keyUp(K_SPACE)) {
 			// Disparar
 			// Aplicar fuerza
-			forge::Vector3 forceVector = camTransform->getForward() * -1.0f;
+			forge::Vector3 forceVector =myRigidBody->getPosition() - camTransform->getPosition();
 			forceVector.normalize();
 			forceVector = forge::Vector3(forceVector.getX() * cos(ballRotation),
 				forceVector.getY() * sin(ballRotation), forceVector.getZ() * cos(ballRotation));
