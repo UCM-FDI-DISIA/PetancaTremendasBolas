@@ -1,6 +1,5 @@
 local prefabs = {
     ball = {
-        handler = "ball",
             components = {
                 Transform = {
                     position = {0, 50, 0},
@@ -20,8 +19,7 @@ local prefabs = {
                     maxForce=500
                 },
                 Mesh={
-                    mesh ="Bola.mesh",
-                    material= "MatPePa"
+                    mesh ="Bola.mesh"
             }
         }
     },
@@ -326,6 +324,20 @@ local prefabs = {
 				mesh = "Fountain.mesh"
 			}
 		}
+	},
+	WinnerText = {
+		handler = "WinnerText",
+		components = {
+			RectTransform = {
+				position = {10*Window["width"]/20, 2*Window["height"]/12},
+				scale = {Window["width"]/20, Window["height"]/12}
+			},
+			Text = {
+				text = "Ganador",
+				fontName = "Willow.ttf",
+				fontHeight = 1
+			}
+		}
 	}
 
 }
@@ -410,7 +422,7 @@ local scenes = {
                 components = {
                     Transform = {
                         position = {0, -10, 100},
-                        scale = {20000,10,20000}
+                        scale = {1000,10,1000}
                     },
                     RigidBody= {
                         friction=1,
@@ -421,6 +433,48 @@ local scenes = {
                     }
                 }
         },
+		pared1 = {
+                components = {
+                    Transform = {
+						position = {500, 0, 100},
+                        scale = {10,50,1000}
+                    },
+                    Collider= {
+
+					},
+                    Mesh={
+                        mesh ="cube.mesh",
+                    }
+                }
+        },
+		pared2 = {
+			components = {
+				Transform = {
+					position = {-500, 0, 100},
+					scale = {10,50,1000}
+				},
+				Collider= {
+
+				},
+				Mesh={
+					mesh ="cube.mesh",
+				}
+			}
+	},
+	pared3 = {
+		components = {
+			Transform = {
+				position = {0, 0, -300},
+				scale = {1000,50,10}
+			},
+			Collider= {
+
+			},
+			Mesh={
+				mesh ="cube.mesh",
+			}
+		}
+},
         player = {
            	handler = "Player",
             components = {

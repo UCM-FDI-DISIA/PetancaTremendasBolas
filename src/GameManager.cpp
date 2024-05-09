@@ -9,14 +9,14 @@
 #include <Text.h>
 #include "UIManager.h"
 #include <TimeForge.h>
-#include <iostream>
+#include <Mesh.h>
 
 //#include <Serializer.h>
 const std::string GameManager::id = "GameManager";
 
 GameManager::GameManager(): firstTurn(false),init(false), isP1(false), turnStarted(false),
 cinematicCamera(false), end(false), myBallCounterP1(0),myBallCounterP2(0),maxBalls(3),points1(0),points2(0), pointRadius(1000), speed(0),
-winnerTime(5), initialCamPos(0, 0, 0), playing(false), waitForRefresh(false), isSelectionScene(false) {
+winnerTime(5), initialCamPos(0, 0, 0), playing(false), waitForRefresh(false), endUI(false) {
 	boliche = nullptr;
 	cam = nullptr;
 	currentBall = nullptr;
@@ -28,8 +28,8 @@ GameManager::~GameManager() {
 }
 
 bool GameManager::initComponent(ComponentData* data) {
-	ballsP1 = std::vector<Entity*>();
-	ballsP2 = std::vector<Entity*>();
+	ballsP1 = std::vector<Entity*>(0);
+	ballsP2 = std::vector<Entity*>(0);
 	
 	return true;
 }
@@ -46,6 +46,7 @@ void GameManager::initVariables() {
 		cam = sceneManager.getActiveScene()->getEntityByHandler("cam")->getComponent<Transform>();
 		initialCamPos = cam->getPosition();
 		manager = sceneManager.getActiveScene()->getEntityByHandler("UIManager")->getComponent<UIManager>();
+		sceneManager.getActiveScene()->getEntityByHandler("Turn")->getComponent<Text>()->setText("No Juan");
 		firstTurn = true;
 	}
 }
@@ -67,7 +68,7 @@ void GameManager::mainLoop() {
 		if (cinematicCamera) {
 			cinematicCameraPhase();
 		}
-		else if (!turnStarted && !cinematicCamera && !init) {
+		else if (!turnStarted && !cinematicCamera && !init && !end) {
 			if (firstTurn) {
 				turnStarted = boliche->getComponent<ShootComponent>()->hasShot();
 
@@ -97,7 +98,6 @@ void GameManager::mainLoop() {
 				myBallCounterP2++;
 				turnStarted = true;
 			}
-   			end = (myBallCounterP1 == myBallCounterP2 && myBallCounterP1 == maxBalls);
 		}
 		//Si el turno ha empezado y no estamos en camara cinematica
 		if (turnStarted && !cinematicCamera) {
@@ -139,16 +139,20 @@ void GameManager::cinematicCameraPhase()
 			if (isP1) {
 				//Sumamos el contador de bolas y calculamos los puntos y pasamos al siguiente turno
 				calculatePoints(isP1);
+				calculatePoints(!isP1);
 				cam->setPosition(initialCamPos);
 				cam->lookAt(ballsP1[myBallCounterP1 - 1]->getComponent<Transform>()->getPosition());
 				isP1 = false;
+				end = (myBallCounterP1 == myBallCounterP2 && myBallCounterP1 == maxBalls);
 			}
 			//Mismo proceso pero con P2
 			else {
 				calculatePoints(isP1);
+				calculatePoints(!isP1);
 				cam->setPosition(initialCamPos);
 				cam->lookAt(ballsP2[myBallCounterP2 - 1]->getComponent<Transform>()->getPosition());
 				isP1 = true;
+				end = (myBallCounterP1 == myBallCounterP2 && myBallCounterP1 == maxBalls);
 			}
 		}
 		else {
@@ -212,12 +216,14 @@ void GameManager::createBall(bool player1)
 	if (player1) {
 		ballsP1.push_back(sceneManager.instantiateBlueprint("ball"));
 		currentBall = ballsP1[myBallCounterP1]->getComponent<ShootComponent>();
+		currentBall->getEntity()->getComponent<Mesh>()->setMaterial(player1Skin);
 		maxForce = currentBall->getMaxForce();
 	}
 	//Crea la bola para el jugador dos si es su turno
 	else {
 		ballsP2.push_back(sceneManager.instantiateBlueprint("ball"));
 		currentBall = ballsP2[myBallCounterP2]->getComponent<ShootComponent>();
+		currentBall->getEntity()->getComponent<Mesh>()->setMaterial(player2Skin);
 		maxForce = currentBall->getMaxForce();
 
 	}
@@ -225,6 +231,7 @@ void GameManager::createBall(bool player1)
 
 void GameManager::changeScene(std::string const& scene) {
 	sceneManager.changeScene(scene);
+	if(scene != "TitleScreen" && scene!= "SkinSelection")setPlaying(true);
 }
 
 void GameManager::setMap(std::string map)
@@ -250,8 +257,12 @@ void GameManager::setSkins(std::string skinP1, std::string skinP2)
 	player2Skin = skinP2;
 }
 void GameManager::endGamePhase() {
+	if (!endUI) {
+		sceneManager.getActiveScene()->getEntityByHandler("Turn")->getComponent<Text>()->setText("");
+		sceneManager.instantiateBlueprint("WinnerText")->getComponent<Text>()->setText((points1 > points2) ? "Ganador : Jugador 1" : "Ganador : Jugador 2");
+		endUI = true;
+	}
 	if (winnerTime > 0) {
-		// UI del ganador
 		winnerTime -= static_cast<float>(forge::Time::deltaTime);
 	}
 	else {
@@ -266,10 +277,12 @@ void GameManager::setPlaying(bool play) {
 	waitForRefresh = play;
 	init = play;
 	firstTurn=false;
+	endUI = false;
 	isP1=false;
 	turnStarted=false;
 	cinematicCamera = false;
 	end = false;
+
 	myBallCounterP1=0;
 	myBallCounterP2=0;
 	maxBalls=3;
@@ -277,5 +290,9 @@ void GameManager::setPlaying(bool play) {
 	points2=0;
 	speed = 0;
 	winnerTime = 5;
+
 	initialCamPos = forge::Vector3(0, 0, 0);
+
+	ballsP1.clear();
+	ballsP2.clear();
 }

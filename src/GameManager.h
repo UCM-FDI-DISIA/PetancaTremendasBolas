@@ -23,6 +23,7 @@ private:
 	bool playing;
 	bool start;
 	bool waitForRefresh;
+	bool endUI;
 
 	//Contadores
 	int myBallCounterP1;

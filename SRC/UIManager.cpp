@@ -30,9 +30,6 @@ bool UIManager::initComponent(ComponentData* data) {
 }
 
 void UIManager::update() {
-	if (myGameManager = nullptr) {
-		myGameManager = sceneManager.getActiveScene()->getEntityByHandler("GameManager")->getComponent<GameManager>();
-	}
 	if (!init && sceneManager.getActiveSceneId() != "TitleScreen" && sceneManager.getActiveSceneId() != "SkinSelector") {
 		registerUI();
 		init = true;
