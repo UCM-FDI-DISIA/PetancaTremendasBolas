@@ -147,7 +147,7 @@ local scenes = {
                         static = true
                     },
                     Mesh={
-                        mesh ="sphere.mesh",
+                        mesh ="cube.mesh",
                     }
                 }
         },

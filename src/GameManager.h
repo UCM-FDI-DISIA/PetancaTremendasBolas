@@ -40,6 +40,7 @@ public:
 	void update() override;
 	int calculatePoints(bool player1);
 	void createBall(bool player1);
+	void changeScene(std::string scene);
 
 
 };

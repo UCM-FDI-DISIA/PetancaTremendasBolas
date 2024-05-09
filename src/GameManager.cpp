@@ -143,3 +143,7 @@ void GameManager::createBall(bool player1)
 		ballsP2.push_back(sceneManager.instantiateBlueprint("ball"));
 	}
 }
+
+void GameManager::changeScene(std::string scene) {
+	sceneManager.changeScene(scene);
+}
