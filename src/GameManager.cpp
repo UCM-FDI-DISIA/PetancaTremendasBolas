@@ -16,7 +16,7 @@ const std::string GameManager::id = "GameManager";
 
 GameManager::GameManager(): firstTurn(false),init(false), isP1(false), turnStarted(false),
 cinematicCamera(false), end(false), myBallCounterP1(0),myBallCounterP2(0),maxBalls(3),points1(0),points2(0), pointRadius(1000), speed(0),
-winnerTime(5), initialCamPos(0, 0, 0), playing(false), waitForRefresh(false) {
+winnerTime(5), initialCamPos(0, 0, 0), playing(false), waitForRefresh(false), isSelectionScene(false) {
 	boliche = nullptr;
 	cam = nullptr;
 	currentBall = nullptr;
@@ -225,6 +225,23 @@ void GameManager::createBall(bool player1)
 
 void GameManager::changeScene(std::string const& scene) {
 	sceneManager.changeScene(scene);
+}
+
+void GameManager::setMap(std::string map)
+{
+	if (map == "escorial.png")
+	{
+		mapSelected = "Escorial";
+	}
+	if (map == "valencia.png")
+	{
+		mapSelected = "Valencia";
+	}
+	if (map == "murcia.png")
+	{
+		mapSelected = "Test";
+	}
+	changeScene(mapSelected);
 }
 
 void GameManager::setSkins(std::string skinP1, std::string skinP2)
