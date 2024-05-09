@@ -1,5 +1,3 @@
-Resolution = {x = 1366, y = 768}
-
 local prefabs = {
     ball = {
         handler = "ball",
@@ -328,7 +326,9 @@ local prefabs = {
 
 }
 
-resolution = {x = 1280, y = 720}
+local keepBetweenScenes = {
+
+}
 
 local scenes = {
 -- TEST
@@ -349,8 +349,8 @@ local scenes = {
             handler = "ForceBar",
             components = {
                 RectTransform = {
-                    position = { Resolution.x / 20 , Resolution.y / 12},
-                    scale = {Resolution.x / 20, 2*Resolution.y/3}
+                    position = { Window["width"] / 20 , Window["height"] / 12},
+                    scale = {Window["width"] / 20, 2*Window["height"]/3}
                 },
                 ProgressBar = {
                     front = "angry.png",
@@ -364,8 +364,8 @@ local scenes = {
             handler = "PuntosP1",
             components = {
                 RectTransform = {
-                    position = {Resolution.x/20, 10*Resolution.y/12},
-                    scale = {Resolution.x/20, Resolution.y/12}
+                    position = {Window["width"]/20, 10*Window["height"]/12},
+                    scale = {Window["width"]/20, Window["height"]/12}
                 },
                 Text = {
                     text = "Jugador 1: ",
@@ -378,8 +378,8 @@ local scenes = {
             handler = "PuntosP2",
             components = {
                 RectTransform = {
-                    position = {16*Resolution.x/20, 10*Resolution.y/12},
-                    scale = {Resolution.x/20, Resolution.y/12}
+                    position = {16*Window["width"]/20, 10*Window["height"]/12},
+                    scale = {Window["width"]/20, Window["height"]/12}
                 },
                 Text = {
                     text = "Jugador 2: ",
@@ -392,8 +392,8 @@ local scenes = {
             handler = "Turn",
             components = {
                 RectTransform = {
-                    position = {10*Resolution.x/20, 2*Resolution.y/12},
-                    scale = {Resolution.x/20, Resolution.y/12}
+                    position = {10*Window["width"]/20, 2*Window["height"]/12},
+                    scale = {Window["width"]/20, Window["height"]/12}
                 },
                 Text = {
                     text = "No Juan",
@@ -581,7 +581,7 @@ local scenes = {
 			components = {
 				RectTransform = {
                     position = {0, 0},
-                    scale = {resolution.x, resolution.y}
+                    scale = {Window["width"], Window["height"]}
                 },
                 Image = {
 					depth = 0,
@@ -592,7 +592,7 @@ local scenes = {
         playButton = { 
             components = {
                 RectTransform = {
-                    position = {resolution.x / 2 - 237.5, resolution.y / 2},
+                    position = {Window["width"] / 2 - 237.5, Window["height"] / 2},
                     scale = {475, 150}
                 },
                 Button = {
@@ -610,7 +610,7 @@ local scenes = {
 		exitButton = { 
             components = {
                 RectTransform = {
-                    position = {resolution.x / 2 - 237.5, resolution.y / 2 + 140},
+                    position = {Window["width"] / 2 - 237.5, Window["height"] / 2 + 140},
                     scale = {475, 150}
                 },
                 Button = {
@@ -1265,4 +1265,4 @@ local scenes = {
     }
 }
 
-return prefabs, scenes
+return prefabs, keepBetweenScenes, scenes
