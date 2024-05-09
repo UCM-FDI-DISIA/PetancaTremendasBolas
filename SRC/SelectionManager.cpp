@@ -70,7 +70,7 @@ void SelectionManager::moveLeft()
 	//Si llega al principio de la lista, se mueve al final
 	if (currentSelection < 0)
 	{
-		currentSelection = materials.size() - 1;
+		currentSelection = (int)materials.size() - 1;
 	}
 	//Si el jugador 1 selecciona la misma opcion que el jugador 2, se mueve a la siguiente
 	if (currentStep == player2Selecting && player1Selection == currentSelection)
@@ -79,7 +79,7 @@ void SelectionManager::moveLeft()
 		//Es necesario volver a controlar si se ha llegado al principio de la lista, por si el jugador 1 selecciona la primera opcion
 		if (currentSelection < 0)
 		{
-			currentSelection = materials.size() - 1;
+			currentSelection = (int)materials.size() - 1;
 		}
 	}
 	swapMaterial();

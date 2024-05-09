@@ -15,12 +15,12 @@ private:
 	bool positioning;
 	bool strengthControl;
 	bool invert;
-	double cameraOffset;
-	double cameraOffsetWithoutY;
-	double rotation;
-	double ballRotation;
-	double maxForce;
-	double force;
+	float cameraOffset;
+	float cameraOffsetWithoutY;
+	float rotation;
+	float ballRotation;
+	float maxForce;
+	float force;
 	forge::Vector3 cameraPos;
 	forge::Vector3 ballInitialPosition;
 	forge::Vector3 forward;

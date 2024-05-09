@@ -64,9 +64,8 @@ void ShootComponent::update() {
 			// Mover a la izquierda
 			rotation += 25 * (float)forge::Time::deltaTime;
 			if(rotation >= 360)rotation = 0;
-			camTransform->setPosition(forge::Vector3((float)(ballInitialPosition.getX() + cameraOffsetWithoutY * sin((float)rotation/180*PI), 
-				(float)(cameraPos.getY()), (float)(ballInitialPosition.getZ()
-				+ cameraOffsetWithoutY * cos((float)rotation / 180 * PI)))));
+			camTransform->setPosition(forge::Vector3(ballInitialPosition.getX() + cameraOffsetWithoutY * (float)sin((float)rotation / 180 * PI), cameraPos.getY(), ballInitialPosition.getZ()
+				+ cameraOffsetWithoutY * (float)cos((float)rotation / 180 * PI)));
 
 			forward = forge::Vector3(1 * (float)sin((float)rotation / 180 * PI), 0, 1 * (float)cos((float)rotation / 180 * PI)).normalized();
 
@@ -80,9 +79,8 @@ void ShootComponent::update() {
 			// Mover a la derecha
 			rotation -= 25 * (float)forge::Time::deltaTime;
 			if (rotation >= 360)rotation = 0;
-			camTransform->setPosition(forge::Vector3((float)(ballInitialPosition.getX() + cameraOffsetWithoutY * sin((float)rotation / 180 * PI),
-				(float)(cameraPos.getY()), (float)(ballInitialPosition.getZ()
-					+ cameraOffsetWithoutY * cos((float)rotation / 180 * PI)))));
+			camTransform->setPosition(forge::Vector3(ballInitialPosition.getX() + cameraOffsetWithoutY * (float)sin((float)rotation / 180 * PI), cameraPos.getY(), ballInitialPosition.getZ()
+				+ cameraOffsetWithoutY * (float)cos((float)rotation / 180 * PI)));
 			forward = forge::Vector3(cameraOffset * (float)sin((float)rotation / 180 * PI), 0, cameraOffset * (float)cos((float)rotation / 180 * PI)).normalized();
 
 			myRigidBody->setPosition(forge::Vector3(cameraPos.getX() - cameraOffset * (float)cos(ballRotation / 180 * PI) * forward.getX(),
