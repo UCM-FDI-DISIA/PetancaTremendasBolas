@@ -475,7 +475,7 @@ local scenes = {
 			handler = "PreviewMap",
 			components = {
 				RectTransform = {
-					position = {Window["width"]/2 - 120, Window["height"] - 100},
+					position = {Window["width"]/2 - 120, Window["height"]/2 - 100},
 					scale = {240, 200}
 				},
 				Image = {
@@ -562,7 +562,7 @@ local scenes = {
             handler = "selectButton",
 			components = {
 				RectTransform = {
-					position = {Window["width"]/2 - 50, Window["height"] + 150},
+					position = {Window["width"]/2 - 50, Window["height"]/2 + 150},
                     scale = {100, 100}
 				},
 				SelectionArrowComponent = 0,
