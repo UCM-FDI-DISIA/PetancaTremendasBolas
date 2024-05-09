@@ -22,7 +22,7 @@ local prefabs = {
                 Mesh={
                     mesh ="Bola.mesh",
                     material= "MatPePa"
-                 }
+            }
         }
     },
     

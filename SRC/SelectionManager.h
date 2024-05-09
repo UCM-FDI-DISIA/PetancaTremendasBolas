@@ -40,7 +40,6 @@ private:
 	int player2Selection;
 	bool confirmation;
 
-	std::string text;
 	std::vector<std::string> materials;
 	std::vector<std::string> maps;
 
