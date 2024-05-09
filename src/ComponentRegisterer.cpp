@@ -6,6 +6,7 @@
 #include "SelectionArrowComponent.h"
 #include "SelectionManager.h"
 #include "RotateComponent.h"
+#include "UIManager.h"
 
 FORGE_IMPORT void registerComponents(Factory& f) {
 	/**
@@ -19,5 +20,5 @@ FORGE_IMPORT void registerComponents(Factory& f) {
     f.registerComponent<SelectionArrowComponent>();
     f.registerComponent<SelectionManager>();
     f.registerComponent<RotateComponent>();
-
+    f.registerComponent<UIManager>();
 }

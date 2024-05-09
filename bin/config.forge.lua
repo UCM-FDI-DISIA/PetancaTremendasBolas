@@ -3,7 +3,12 @@ Config = {
 	debugGame = "Petanca_d",
 	assetsFile = "Assets/assets.forge.lua",
 	scenesFile = "Assets/scenes.forge.lua",
-	initialScene = "Test"
+	initialScene = "TitleScreen"
+}
+
+Window = {
+	width = 1280,
+	height = 720
 }
 
 Physics = {

@@ -326,7 +326,10 @@ local prefabs = {
 
 }
 
+resolution = {x = 1280, y = 720}
+
 local scenes = {
+-- TEST
     Test = {
         GameManager = {
             handler = "GameManager",
@@ -393,7 +396,7 @@ local scenes = {
             }
         }
 	},
-
+-- SKIN SELECTION
 	SkinSelection = {
         previewBall = {
             handler = "PreviewBall",
@@ -498,7 +501,7 @@ local scenes = {
 			}
 		}
 	},
-
+-- TITLE SCREEN
 	TitleScreen = {
 		cam = {
 			components = {
@@ -508,20 +511,26 @@ local scenes = {
 				Camera = {
 					nearClipDistance = 1,
 					autoAspectRatio = true,
-					backgroundColor = {0.6, 0.3, 0.3}
+					backgroundColor = {0.67,0.35,0.35}
 				},
 				AudioListener = 0
 			}
 		},
-		logo = {
+		uiManager = {
+			handler = "UIManager",
+			components = {
+				UIManager = 0
+			}
+		},
+		mainMenuBackground = {
 			components = {
 				RectTransform = {
                     position = {0, 0},
-                    scale = {600, 200}
+                    scale = {resolution.x, resolution.y}
                 },
                 Image = {
 					depth = 0,
-					texture = "petancaLogo.png"
+					texture = "PetancaTitleScreen.png"
 				}
 			}
 		},
@@ -535,11 +544,16 @@ local scenes = {
                     depth = 2,
                     out = "playOnOut.png",
                     hover = "playOnOver.png",
-                    clicked = "playOnClick.png"
+                    clicked = "playOnClick.png",
+					onClickInvoker = "UIManager",
+					onClick = function (inv)
+						inv:invoke("play");
+					end
                 }
             }
-        },
+        }
     },
+-- ESCORIAL
 	Escorial = {
 		GameManager = {
             handler = "GameManager",
