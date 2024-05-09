@@ -3,7 +3,7 @@ Config = {
 	debugGame = "Petanca_d",
 	assetsFile = "Assets/assets.forge.lua",
 	scenesFile = "Assets/scenes.forge.lua",
-	initialScene = "SkinSelection"
+	initialScene = "TitleScreen"
 }
 
 Physics = {
