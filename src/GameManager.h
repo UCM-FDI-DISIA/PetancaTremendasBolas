@@ -43,6 +43,11 @@ private:
 	ShootComponent* currentBall;
 	UIManager* manager;
 	forge::Vector3 initialCamPos;
+
+	//Valores relacionados con la seleccion de skins
+	bool isSelectionScene;
+	std::string player1Skin;
+	std::string player2Skin;
 public:
 	static const std::string id;
 
@@ -64,6 +69,7 @@ public:
 	/// </summary>
 	/// <param name="player1">Para saber si se crea la bola para P1 o P2</param>
 	void createBall(bool player1);
+	void setSkins(std::string skinP1, std::string skinP2);
 	void changeScene(std::string scene);
 
 

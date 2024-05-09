@@ -1,11 +1,10 @@
 #pragma once
 #include "Component.h"
+class SelectionManager;
 class Button;
 class SelectionArrowComponent : public Component {
 private:
-	Button* button;
-	bool left;
-	
+	SelectionManager* selectionManager;
 public:
 	static const std::string id;	
 	/// <summary>
@@ -21,4 +20,8 @@ public:
 	/// Actualiza la logica del componente, llamandose en cada iteracion del bucle principal
 	/// </summary>
 	void update() override;
+
+	void callLeft();
+	void callRight();
+	void callSelect();
 };

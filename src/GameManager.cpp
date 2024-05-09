@@ -32,6 +32,11 @@ bool GameManager::initComponent(ComponentData* data) {
 }
 
 void GameManager::update() {
+	if (isSelectionScene)
+	{
+		return;
+	}
+
 	// Bucle para calcular los puntos de la partida
 	// Falta control de escena de pausasds
 
@@ -189,4 +194,10 @@ void GameManager::createBall(bool player1)
 
 void GameManager::changeScene(std::string scene) {
 	sceneManager.changeScene(scene);
+}
+
+void GameManager::setSkins(std::string skinP1, std::string skinP2)
+{
+	player1Skin = skinP1;
+	player2Skin = skinP2;
 }

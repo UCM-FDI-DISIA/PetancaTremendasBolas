@@ -460,13 +460,27 @@ local scenes = {
                     position = {0, 0, 0}
                 },
                 Mesh = {
-                    mesh = "Bola.mesh"
+                    mesh = "Bola.mesh",
+					material="MatPePa"
                 },
                 RotateComponent = {
 					rotationSpeed = 60
 				}
             }
         },
+		previewMap = {
+			handler = "PreviewMap",
+			components = {
+				RectTransform = {
+					position = {resolution.x/2 - 120, resolution.y/2 - 100},
+					scale = {240, 200}
+				},
+				Image = {
+					depth = 0,
+					texture = "valencia.png"
+				}
+			}
+		},
         selectionManager = {
             handler = "SelectionManager",
             components = {
@@ -481,6 +495,11 @@ local scenes = {
                         "MatRome",
                         "MatBolaDragon",
                         "MatTenis"
+					},
+					maps = {
+						"escorial.png",
+						"murcia.png",
+						"valencia.png"
 					}
                 }
             }
@@ -488,7 +507,7 @@ local scenes = {
         cam = {
 			components = {
 				Transform = {
-					position = {0, 0, 0}
+					position = {0, 0, 10}
 				},
 				Camera = {
 					nearClipDistance = 1,
@@ -502,17 +521,16 @@ local scenes = {
             handler = "Arrow",
 			components = {
 				RectTransform = {
-					position = {100, 200},
+					position = {resolution.x/2 - 200 - 50, resolution.y/2},
                     scale = {100, 100}
 				},
+				SelectionArrowComponent = 0,
                 Button = {
                     out = "panko.png",
                     clicked = "panko.png",
                     hover = "panko.png",
 					onClick = function (inv)
-                        print("holi");
-	                    inv:invoke("moveLeft");
-                        print("holi2");
+	                    inv:invoke("left");
                     end 
 				}
 			}
@@ -521,38 +539,39 @@ local scenes = {
             handler = "rArrow",
 			components = {
 				RectTransform = {
-					position = {450, 200},
+					position = {resolution.x/2 + 200 - 50, resolution.y/2},
                     scale = {100, 100}
 				},
+				SelectionArrowComponent = 0,
                 Button = {
                     out = "panko.png",
                     clicked = "panko.png",
                     hover = "panko.png",
 					onClick = function (inv)
-                        print("holi");
-	                    inv:invoke("moveRight");
-                        print("holi2");
+	                    inv:invoke("right");
                     end 
-				}
+				},
+				
+
 			}
 		},
         selectButton = {
             handler = "selectButton",
 			components = {
 				RectTransform = {
-					position = {275, 350},
+					position = {resolution.x/2 - 50, resolution.y/2 + 150},
                     scale = {100, 100}
 				},
+				SelectionArrowComponent = 0,
                 Button = {
                     out = "panko.png",
                     clicked = "panko.png",
                     hover = "panko.png",
 					onClick = function (inv)
-                        print("holi");
-	                    inv:invoke("selectSkin");
-                        print("holi2");
+	                    inv:invoke("select");
                     end 
 				}
+
 			}
 		}
 	},
