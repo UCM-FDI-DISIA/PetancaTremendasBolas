@@ -2,10 +2,11 @@
 #define GAME_MANAGER_H_
 #include <Component.h>
 #include <Vector3.h>
-
 class Entity;
 class Transform;
 class Scene;
+class ShootComponent;
+class ProgressBar;
 namespace forge {
 	class Vector3;
 }
@@ -24,11 +25,14 @@ private:
 	int points2;
 	float pointRadius;
 	float speed;
+	float maxForce;
 	std::vector<Entity*> ballsP1;
 	std::vector<Entity*> ballsP2;
 	std::vector<std::string> sceneNames;
 	Entity* boliche;
 	Transform* cam;
+	ProgressBar* bar;
+	ShootComponent* currentBall;
 	forge::Vector3 initialCamPos;
 public:
 	static const std::string id;
