@@ -6,7 +6,8 @@
 #include <RigidBody.h>
 #include "ShootComponent.h"
 #include <ProgressBar.h>
-
+#include <Text.h>
+#include "UIManager.h"
 //#include <Serializer.h>
 const std::string GameManager::id = "GameManager";
 
@@ -15,6 +16,9 @@ cinematicCamera(false), myBallCounterP1(0),myBallCounterP2(0),maxBalls(3),points
 , initialCamPos(0,0,0){
 	boliche = nullptr;
 	cam = nullptr;
+	currentBall = nullptr;
+	manager = nullptr;
+	maxForce = 0;
 }
 
 GameManager::~GameManager() {
@@ -23,22 +27,26 @@ GameManager::~GameManager() {
 bool GameManager::initComponent(ComponentData* data) {
 	ballsP1 = std::vector<Entity*>();
 	ballsP2 = std::vector<Entity*>();
-	bar = this->getEntity()->getComponent<ProgressBar>();
 	
 	return true;
 }
 
 void GameManager::update() {
 	// Bucle para calcular los puntos de la partida
-	// Falta control de escena de pausa
+	// Falta control de escena de pausasds
+
+	/// CAMERA CINEMATICA QUE SIGUE A LA BOLA
 	if (cinematicCamera) {
 		
 		 //Si la velocidad de la bola es menor a 0.1, se desactiva la camara cinematica
 		 if(speed < 5) { 
 			 cinematicCamera = false;
 			 turnStarted=false;
+
+			 ///SI NO ES EL PRIMER TURNO
 			 if (!firstTurn) {
 				 //Camara vuelve a posicion inicial
+				 ///SI SE ACABA EL TURNO DEL JUGADOR 1
 				 if (isP1) {
 					 //Sumamos el contador de bolas y calculamos los puntos y pasamos al siguiente turno
 					 calculatePoints(isP1);
@@ -47,6 +55,7 @@ void GameManager::update() {
 					 isP1 = false;
 				 }
 				 //Mismo proceso pero con P2
+				 ///SI SE ACABA DEL TURNO DEL JUGADOR 2
 				 else {
 					 calculatePoints(isP1);
 					 cam->setPosition(initialCamPos);
@@ -54,6 +63,7 @@ void GameManager::update() {
 					 isP1 = true;
 				 }
 			 }
+			 ///SI ES EL PRIMER TURNO Y ACABA EMPIEZA EL JUEGO
 			 else {
 				 firstTurn = false;
 				 isP1 = true;
@@ -78,20 +88,29 @@ void GameManager::update() {
 	else if (!turnStarted && !cinematicCamera && !init) {
 		if (firstTurn) {
 			turnStarted = boliche->getComponent<ShootComponent>()->hasShot();
-			bar->setValue(currentBall->getForce() / maxForce);
+
+			//ACTUALIZACION DE LA BARRA
+			manager->updateProgressBar(currentBall->getForce(), maxForce);
 			if (turnStarted) {
 				speed = 100;
 				cinematicCamera = turnStarted;
+				
 			}
 		}
 		if (isP1 && !firstTurn) {
 			//Crear bola de petanca jugador 1 y activar su shoot component
+			//ACTUALIZACION DEL TURNO
+			manager->updateTurn(isP1);
+
 			createBall(isP1);
 			myBallCounterP1++;
 			turnStarted = true;
 		}
 		else if(!firstTurn) {
 			//Lo mismo pero con P2
+			//ACTUALIZACION DEL TURNO
+			manager->updateTurn(isP1);
+
 			createBall(isP1 && !firstTurn);
 			myBallCounterP2++;
 			turnStarted = true;
@@ -101,12 +120,18 @@ void GameManager::update() {
 	if (turnStarted && !cinematicCamera) {
 		if (isP1) {
 			cinematicCamera = currentBall->hasShot();
-			bar->setValue(currentBall->getForce() / maxForce);
+
+			//ACTUALIZACION DE LA BARRA
+			manager->updateProgressBar(currentBall->getForce(), maxForce);
+
 			speed = 100;
 		}
 		else {
 			cinematicCamera = currentBall->hasShot();
-			bar->setValue(currentBall->getForce() / maxForce);		
+			
+			//ACTUALIZACION DE LA BARRA
+			manager->updateProgressBar(currentBall->getForce(), maxForce);
+
 			speed = 100;
 		}
 	}
@@ -118,6 +143,7 @@ void GameManager::update() {
 		maxForce = currentBall->getMaxForce();
 		cam = sceneManager.getActiveScene()->getEntityByHandler("cam")->getComponent<Transform>();
 		initialCamPos = cam->getPosition();
+		manager = sceneManager.getActiveScene()->getEntityByHandler("UIManager")->getComponent<UIManager>();
 		firstTurn = true;
 	}
 }
@@ -130,6 +156,7 @@ int GameManager::calculatePoints(bool player1)
 		{
 			points1 += (int)(500 * ((float)(pointRadius - (boliche->getComponent<Transform>()->getPosition() - ball->getComponent<Transform>()->getPosition()).magnitude()) / pointRadius));
 		}
+		manager->updatePoints(points1, player1);
 	}
 	else {
 		points2 = 0;
@@ -137,6 +164,8 @@ int GameManager::calculatePoints(bool player1)
 		{
 			points2 += (int)(500 * ((float)(pointRadius - (boliche->getComponent<Transform>()->getPosition() - ball->getComponent<Transform>()->getPosition()).magnitude()) / pointRadius));
 		}
+		manager->updatePoints(points2, player1);
+
 	}
 	return 0;
 }
@@ -147,11 +176,14 @@ void GameManager::createBall(bool player1)
 	if (player1) {
 		ballsP1.push_back(sceneManager.instantiateBlueprint("ball"));
 		currentBall = ballsP1[myBallCounterP1]->getComponent<ShootComponent>();
+		maxForce = currentBall->getMaxForce();
 	}
 	//Crea la bola para el jugador dos si es su turno
 	else {
 		ballsP2.push_back(sceneManager.instantiateBlueprint("ball"));
 		currentBall = ballsP2[myBallCounterP2]->getComponent<ShootComponent>();
+		maxForce = currentBall->getMaxForce();
+
 	}
 }
 

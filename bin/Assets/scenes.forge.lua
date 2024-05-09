@@ -1,3 +1,5 @@
+Resolution = {x = 1366, y = 768}
+
 local prefabs = {
     ball = {
         handler = "ball",
@@ -335,17 +337,70 @@ local scenes = {
             handler = "GameManager",
                 components = {
                     GameManager = 0,
-                    RectTransform = {
-                        position = {125, 350},
-                        scale = {300, 100}
-                    },
-                    ProgressBar = {
-                        front = "angry.png",
-                        back = "angryBg.png",
-                        growth = "LEFT_TO_RIGHT",
-                        depth = 3
-                    }
                 }
+        },
+        UIManager = {
+            handler = "UIManager",
+                components = {
+                    UIManager = 0,
+                }
+        },
+        ForceBar = {
+            handler = "ForceBar",
+            components = {
+                RectTransform = {
+                    position = { Resolution.x / 20 , Resolution.y / 12},
+                    scale = {Resolution.x / 20, 2*Resolution.y/3}
+                },
+                ProgressBar = {
+                    front = "angry.png",
+                    back = "angryBg.png",
+                    growth = "DOWN_TO_UP",
+                    depth = 3
+                }
+            }
+        },
+        PuntosP1 = {
+            handler = "PuntosP1",
+            components = {
+                RectTransform = {
+                    position = {Resolution.x/20, 10*Resolution.y/12},
+                    scale = {Resolution.x/20, Resolution.y/12}
+                },
+                Text = {
+                    text = "Jugador 1: ",
+                    fontName = "Willow.ttf",
+                    fontHeight = 1
+                }
+            }
+        },
+        PuntosP2 = {
+            handler = "PuntosP2",
+            components = {
+                RectTransform = {
+                    position = {16*Resolution.x/20, 10*Resolution.y/12},
+                    scale = {Resolution.x/20, Resolution.y/12}
+                },
+                Text = {
+                    text = "Jugador 2: ",
+                    fontName = "Willow.ttf",
+                    fontHeight = 1
+                }
+            }
+        },
+        TurnText = {
+            handler = "Turn",
+            components = {
+                RectTransform = {
+                    position = {10*Resolution.x/20, 2*Resolution.y/12},
+                    scale = {Resolution.x/20, Resolution.y/12}
+                },
+                Text = {
+                    text = "No Juan",
+                    fontName = "Willow.ttf",
+                    fontHeight = 1
+                }
+            }
         },
         suelo = {
             handler = "Suelo",

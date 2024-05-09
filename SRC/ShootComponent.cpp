@@ -135,7 +135,6 @@ void ShootComponent::update() {
 				force = 0;
 				invert = false;
 			}
-			std::cout << force << std::endl;
 		}
 		if (input->keyUp(K_SPACE)) {
 			// Disparar
