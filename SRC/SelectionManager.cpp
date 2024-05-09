@@ -164,11 +164,11 @@ void SelectionManager::makeSelection()
 		mapSelection = currentMapSelection;
 		currentStep = selectionConfirmation;
 		std::cout << "se confirma mapa\n";
+		confirmSelection();
 	}
 	else if (currentStep == selectionConfirmation)
 	{
 		std::cout << "se confirma sele\n";
-		confirmSelection();
 	}
 }
 
