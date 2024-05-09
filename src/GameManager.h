@@ -22,6 +22,7 @@ private:
 	bool end;
 	bool playing;
 	bool start;
+	bool waitForRefresh;
 
 	//Contadores
 	int myBallCounterP1;
@@ -82,5 +83,6 @@ public:
 	void setSkins(std::string skinP1, std::string skinP2);
 	void changeScene(std::string const& scene);
 	void endGamePhase();
+	void setPlaying(bool playing);
 };
 #endif // !GAME_MANAGER_H_

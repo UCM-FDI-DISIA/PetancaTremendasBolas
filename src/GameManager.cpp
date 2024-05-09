@@ -14,9 +14,9 @@
 //#include <Serializer.h>
 const std::string GameManager::id = "GameManager";
 
-GameManager::GameManager(): firstTurn(false),init(true), isP1(false), turnStarted(false),
+GameManager::GameManager(): firstTurn(false),init(false), isP1(false), turnStarted(false),
 cinematicCamera(false), end(false), myBallCounterP1(0),myBallCounterP2(0),maxBalls(3),points1(0),points2(0), pointRadius(1000), speed(0),
-winnerTime(5), initialCamPos(0, 0, 0), playing(false) {
+winnerTime(5), initialCamPos(0, 0, 0), playing(false), waitForRefresh(false) {
 	boliche = nullptr;
 	cam = nullptr;
 	currentBall = nullptr;
@@ -35,14 +35,19 @@ bool GameManager::initComponent(ComponentData* data) {
 }
 
 void GameManager::initVariables() {
-	init = false;
-	boliche = sceneManager.instantiateBlueprint("boliche");
-	currentBall = boliche->getComponent<ShootComponent>();
-	maxForce = currentBall->getMaxForce();
-	cam = sceneManager.getActiveScene()->getEntityByHandler("cam")->getComponent<Transform>();
-	initialCamPos = cam->getPosition();
-	manager = sceneManager.getActiveScene()->getEntityByHandler("UIManager")->getComponent<UIManager>();
-	firstTurn = true;
+	if (waitForRefresh) {
+		waitForRefresh = false;
+	}
+	else {
+		init = false;
+		boliche = sceneManager.instantiateBlueprint("boliche");
+		currentBall = boliche->getComponent<ShootComponent>();
+		maxForce = currentBall->getMaxForce();
+		cam = sceneManager.getActiveScene()->getEntityByHandler("cam")->getComponent<Transform>();
+		initialCamPos = cam->getPosition();
+		manager = sceneManager.getActiveScene()->getEntityByHandler("UIManager")->getComponent<UIManager>();
+		firstTurn = true;
+	}
 }
 
 void GameManager::update() {
@@ -92,6 +97,7 @@ void GameManager::mainLoop() {
 				myBallCounterP2++;
 				turnStarted = true;
 			}
+   			end = (myBallCounterP1 == myBallCounterP2 && myBallCounterP1 == maxBalls);
 		}
 		//Si el turno ha empezado y no estamos en camara cinematica
 		if (turnStarted && !cinematicCamera) {
@@ -233,6 +239,26 @@ void GameManager::endGamePhase() {
 	}
 	else {
 		winnerTime = 5;
+
 		changeScene("TitleScreen");
 	}
+}
+
+void GameManager::setPlaying(bool play) {
+	playing = play;
+	waitForRefresh = play;
+	init = play;
+	firstTurn=false;
+	isP1=false;
+	turnStarted=false;
+	cinematicCamera = false;
+	end = false;
+	myBallCounterP1=0;
+	myBallCounterP2=0;
+	maxBalls=3;
+	points1=0;
+	points2=0;
+	speed = 0;
+	winnerTime = 5;
+	initialCamPos = forge::Vector3(0, 0, 0);
 }

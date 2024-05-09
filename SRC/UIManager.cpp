@@ -7,6 +7,7 @@
 #include <ProgressBar.h>
 #include<SceneManager.h>
 #include <Scene.h>
+#include "GameManager.h"
 const std::string UIManager::id = "UIManager";
 
 UIManager::UIManager() : 
@@ -15,7 +16,7 @@ UIManager::UIManager() :
 	tPlayer(nullptr), 
 	forceBar(nullptr), 
 	init(false)  {
-	
+	myGameManager = nullptr;
 }
 
 UIManager::~UIManager() {
@@ -29,14 +30,21 @@ bool UIManager::initComponent(ComponentData* data) {
 }
 
 void UIManager::update() {
-	if (!init && sceneManager.getActiveSceneId() == "Test") {
+	if (myGameManager = nullptr) {
+		myGameManager = sceneManager.getActiveScene()->getEntityByHandler("GameManager")->getComponent<GameManager>();
+	}
+	if (!init && sceneManager.getActiveSceneId() != "TitleScreen" && sceneManager.getActiveSceneId() != "SkinSelector") {
 		registerUI();
 		init = true;
 	}
 }
 
 void UIManager::play() {
-	sceneManager.changeScene("Valencia", true);
+	if (myGameManager == nullptr) {
+		myGameManager = sceneManager.getActiveScene()->getEntityByHandler("GameManager")->getComponent<GameManager>();
+	}
+	sceneManager.changeScene("SkinSelection", true);
+	//myGameManager->setPlaying(true);
 }
 
 void UIManager::exit() {

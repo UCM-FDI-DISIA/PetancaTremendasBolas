@@ -4,6 +4,7 @@
 #include <Component.h>
 class Text;
 class ProgressBar;
+class GameManager;
 class UIManager : public Component {
 private:
 	ProgressBar* forceBar;
@@ -11,6 +12,8 @@ private:
 	Text* pointsP2;
 	Text* tPlayer;
 	bool init;
+
+	GameManager* myGameManager;
 
 	/// <summary>
 	/// Registra la UI de la petanca

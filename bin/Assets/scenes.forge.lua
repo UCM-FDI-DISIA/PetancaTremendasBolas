@@ -331,18 +331,17 @@ local prefabs = {
 }
 
 local keepBetweenScenes = {
-
+	GameManager = {
+		handler = "GameManager",
+			components = {
+				GameManager = 0
+			}
+	}
 }
 
 local scenes = {
 -- TEST
     Test = {
-        GameManager = {
-            handler = "GameManager",
-                components = {
-                    GameManager = 0,
-                }
-        },
         UIManager = {
             handler = "UIManager",
                 components = {
@@ -652,12 +651,6 @@ local scenes = {
     },
 -- ESCORIAL
 	Escorial = {
-		GameManager = {
-            handler = "GameManager",
-                components = {
-                    GameManager = 0
-                }
-        },
         suelo = {
             handler = "Suelo",
                 components = {
