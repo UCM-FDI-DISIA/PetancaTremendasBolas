@@ -4,12 +4,12 @@ local prefabs = {
             components = {
                 Transform = {
                     position = {0, 50, 0},
-                    scale = {5, 5, 5}
+                    scale = {10, 10, 10}
                 },
                 RigidBody = {
                     mass = 0.01,
                     gravity = {0,-9.8,0},
-                    friction = 1,
+                    friction = 0.6,
                     restitution = 0,
                     shapeType = "Sphere",
                     static = false,
@@ -30,13 +30,13 @@ local prefabs = {
         handler = "boliche",
         components = {
             Transform = {
-                position = {0, 50, 0}
+                position = {0, 50, 0},
+				scale = {5, 5, 5}
             },
-            RigidBody = {
-                scale = {2, 2, 2},
+            RigidBody = { 
                 mass = 0.005,
                 gravity = {0,-9.8,0},
-                friction = 0.5,
+                friction = 0.8,
                 restitution = 0,
                 shapeType = "Sphere",
                 static = false,
@@ -45,7 +45,11 @@ local prefabs = {
             },
             ShootComponent = {
                 maxForce=100
-            }
+            },
+			Mesh={
+				mesh ="Bola.mesh",
+				material= "MatPePa"
+			 }
         }
     },
     Paellera = {
@@ -407,7 +411,7 @@ local scenes = {
                 components = {
                     Transform = {
                         position = {0, -10, 0},
-                        scale = {200,10,200}
+                        scale = {2000,10,2000}
                     },
                     RigidBody= {
                         friction=1,
@@ -435,7 +439,7 @@ local scenes = {
                 Camera = {
                     nearClipDistance = 1,
                     autoAspectRatio = true,
-                    backgroundColor = {0.6, 0.3, 0.3}
+                    backgroundColor = {0.0, 0.2, 0.6}
                 },
                 AudioListener = 0
             }

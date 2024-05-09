@@ -10,6 +10,10 @@ Window = {
 	width = 1280,
 	height = 720
 }
+Window={
+	width= 1280,
+	height=720
+}
 
 Physics = {
 	layers = {	--		Default	Layer1	Layer2	Layer3

@@ -16,7 +16,7 @@ SelectionManager::SelectionManager() :
 	previewBall(nullptr),
 	previewMap(nullptr),
 	currentStep(player1Selecting),
-	text(nullptr),
+	text(""),
 	player1Selection(0),
 	player2Selection(0),
 	currentSkinSelection(0),

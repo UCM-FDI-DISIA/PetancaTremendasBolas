@@ -8,12 +8,15 @@
 #include <ProgressBar.h>
 #include <Text.h>
 #include "UIManager.h"
+#include <TimeForge.h>
+#include <iostream>
+
 //#include <Serializer.h>
 const std::string GameManager::id = "GameManager";
 
 GameManager::GameManager(): firstTurn(false),init(true), isP1(false), turnStarted(false),
-cinematicCamera(false), myBallCounterP1(0),myBallCounterP2(0),maxBalls(3),points1(0),points2(0), pointRadius(100), speed(0)
-, initialCamPos(0,0,0){
+cinematicCamera(false), end(false), myBallCounterP1(0),myBallCounterP2(0),maxBalls(3),points1(0),points2(0), pointRadius(100), speed(0),
+winnerTime(5), initialCamPos(0, 0, 0) {
 	boliche = nullptr;
 	cam = nullptr;
 	currentBall = nullptr;
@@ -31,125 +34,130 @@ bool GameManager::initComponent(ComponentData* data) {
 	return true;
 }
 
+void GameManager::initVariables() {
+	init = false;
+	boliche = sceneManager.instantiateBlueprint("boliche");
+	currentBall = boliche->getComponent<ShootComponent>();
+	maxForce = currentBall->getMaxForce();
+	cam = sceneManager.getActiveScene()->getEntityByHandler("cam")->getComponent<Transform>();
+	initialCamPos = cam->getPosition();
+	manager = sceneManager.getActiveScene()->getEntityByHandler("UIManager")->getComponent<UIManager>();
+	firstTurn = true;
+}
+
 void GameManager::update() {
-	if (isSelectionScene)
-	{
-		return;
-	}
+	if(!end) {
+		if (isSelectionScene)
+		{
+			return;
+		}
 
-	// Bucle para calcular los puntos de la partida
-	// Falta control de escena de pausasds
+		/// CAMERA CINEMATICA QUE SIGUE A LA BOLA
+		if (cinematicCamera) {
+			cinematicCameraPhase();
+		}
+		else if (!turnStarted && !cinematicCamera && !init) {
+			if (firstTurn) {
+				turnStarted = boliche->getComponent<ShootComponent>()->hasShot();
 
-	/// CAMERA CINEMATICA QUE SIGUE A LA BOLA
-	if (cinematicCamera) {
-		
-		 //Si la velocidad de la bola es menor a 0.1, se desactiva la camara cinematica
-		 if(speed < 5) { 
-			 cinematicCamera = false;
-			 turnStarted=false;
+				//ACTUALIZACION DE LA BARRA
+				manager->updateProgressBar(currentBall->getForce(), maxForce);
+				if (turnStarted) {
+					speed = 100;
+					cinematicCamera = turnStarted;
 
-			 ///SI NO ES EL PRIMER TURNO
-			 if (!firstTurn) {
-				 //Camara vuelve a posicion inicial
-				 ///SI SE ACABA EL TURNO DEL JUGADOR 1
-				 if (isP1) {
-					 //Sumamos el contador de bolas y calculamos los puntos y pasamos al siguiente turno
-					 calculatePoints(isP1);
-					 cam->setPosition(initialCamPos);
-					 cam->lookAt(ballsP1[myBallCounterP1-1]->getComponent<Transform>()->getPosition());
-					 isP1 = false;
-				 }
-				 //Mismo proceso pero con P2
-				 ///SI SE ACABA DEL TURNO DEL JUGADOR 2
-				 else {
-					 calculatePoints(isP1);
-					 cam->setPosition(initialCamPos);
-					 cam->lookAt(ballsP2[myBallCounterP2-1]->getComponent<Transform>()->getPosition());
-					 isP1 = true;
-				 }
-			 }
-			 ///SI ES EL PRIMER TURNO Y ACABA EMPIEZA EL JUEGO
-			 else {
-				 firstTurn = false;
-				 isP1 = true;
-			 }
-		 }
-		 // La camara sigue la bola hasta que baje de cierta velocidad
-		// Y vuelve a la posicion inicial
-		 if (isP1 && !ballsP1.empty()) {
-			 // Camara sigue la bola
- 			 cam->lookAt(ballsP1[myBallCounterP1-1]->getComponent<Transform>()->getPosition());
-			 speed = ballsP1[myBallCounterP1-1]->getComponent<RigidBody>()->getSpeed();
-		 }
-		 else if (!firstTurn && !isP1 && !ballsP2.empty()) {
-			 cam->lookAt(ballsP2[myBallCounterP2-1]->getComponent<Transform>()->getPosition());
-			 speed = ballsP2[myBallCounterP2-1]->getComponent<RigidBody>()->getSpeed();
-		 }
-		 else {
-			 cam->lookAt(boliche->getComponent<Transform>()->getPosition());
-			 speed = boliche->getComponent<RigidBody>()->getSpeed();
-		 }
-	}
-	else if (!turnStarted && !cinematicCamera && !init) {
-		if (firstTurn) {
-			turnStarted = boliche->getComponent<ShootComponent>()->hasShot();
+				}
+			}
+			if (isP1 && !firstTurn) {
+				//Crear bola de petanca jugador 1 y activar su shoot component
+				//ACTUALIZACION DEL TURNO
+				manager->updateTurn(isP1);
 
-			//ACTUALIZACION DE LA BARRA
-			manager->updateProgressBar(currentBall->getForce(), maxForce);
-			if (turnStarted) {
-				speed = 100;
-				cinematicCamera = turnStarted;
-				
+				createBall(isP1);
+				myBallCounterP1++;
+				turnStarted = true;
+			}
+			else if(!firstTurn) {
+				//Lo mismo pero con P2
+				//ACTUALIZACION DEL TURNO
+				manager->updateTurn(isP1);
+
+				createBall(isP1 && !firstTurn);
+				myBallCounterP2++;
+				turnStarted = true;
 			}
 		}
-		if (isP1 && !firstTurn) {
-			//Crear bola de petanca jugador 1 y activar su shoot component
-			//ACTUALIZACION DEL TURNO
-			manager->updateTurn(isP1);
+		//Si el turno ha empezado y no estamos en camara cinematica
+		if (turnStarted && !cinematicCamera) {
+			if (isP1) {
+				cinematicCamera = currentBall->hasShot();
 
-			createBall(isP1);
-			myBallCounterP1++;
-			turnStarted = true;
-		}
-		else if(!firstTurn) {
-			//Lo mismo pero con P2
-			//ACTUALIZACION DEL TURNO
-			manager->updateTurn(isP1);
+				//ACTUALIZACION DE LA BARRA
+				manager->updateProgressBar(currentBall->getForce(), maxForce);
 
-			createBall(isP1 && !firstTurn);
-			myBallCounterP2++;
-			turnStarted = true;
+				speed = 100;
+			}
+			else {
+				cinematicCamera = currentBall->hasShot();
+
+				//ACTUALIZACION DE LA BARRA
+				manager->updateProgressBar(currentBall->getForce(), maxForce);
+
+				speed = 100;
+			}
 		}
+
+		if (init) {
+			initVariables();
+		}
+	}	
+	else{
+		endGamePhase();
 	}
-	//Si el turno ha empezado y no estamos en camara cinematica
-	if (turnStarted && !cinematicCamera) {
-		if (isP1) {
-			cinematicCamera = currentBall->hasShot();
+}
 
-			//ACTUALIZACION DE LA BARRA
-			manager->updateProgressBar(currentBall->getForce(), maxForce);
-
-			speed = 100;
+void GameManager::cinematicCameraPhase()
+{
+	//Si la velocidad de la bola es menor a 0.1, se desactiva la camara cinematica
+	if (speed < 0.01) {
+		cinematicCamera = false;
+		turnStarted = false;
+		if (!firstTurn) {
+			//Camara vuelve a posicion inicial
+			if (isP1) {
+				//Sumamos el contador de bolas y calculamos los puntos y pasamos al siguiente turno
+				calculatePoints(isP1);
+				cam->setPosition(initialCamPos);
+				cam->lookAt(ballsP1[myBallCounterP1 - 1]->getComponent<Transform>()->getPosition());
+				isP1 = false;
+			}
+			//Mismo proceso pero con P2
+			else {
+				calculatePoints(isP1);
+				cam->setPosition(initialCamPos);
+				cam->lookAt(ballsP2[myBallCounterP2 - 1]->getComponent<Transform>()->getPosition());
+				isP1 = true;
+			}
 		}
 		else {
-			cinematicCamera = currentBall->hasShot();
-			
-			//ACTUALIZACION DE LA BARRA
-			manager->updateProgressBar(currentBall->getForce(), maxForce);
-
-			speed = 100;
+			firstTurn = false;
+			isP1 = true;
 		}
 	}
-
-	if (init) {
-		init = false;
-		boliche = sceneManager.instantiateBlueprint("boliche");
-		currentBall = boliche->getComponent<ShootComponent>();
-		maxForce = currentBall->getMaxForce();
-		cam = sceneManager.getActiveScene()->getEntityByHandler("cam")->getComponent<Transform>();
-		initialCamPos = cam->getPosition();
-		manager = sceneManager.getActiveScene()->getEntityByHandler("UIManager")->getComponent<UIManager>();
-		firstTurn = true;
+	// La camara sigue la bola hasta que baje de cierta velocidad
+   // Y vuelve a la posicion inicial
+	if (isP1 && !ballsP1.empty()) {
+		// Camara sigue la bola
+		cam->lookAt(ballsP1[myBallCounterP1 - 1]->getComponent<Transform>()->getPosition());
+		speed = ballsP1[myBallCounterP1 - 1]->getComponent<RigidBody>()->getSpeed();
+	}
+	else if (!firstTurn && !isP1 && !ballsP2.empty()) {
+		cam->lookAt(ballsP2[myBallCounterP2 - 1]->getComponent<Transform>()->getPosition());
+		speed = ballsP2[myBallCounterP2 - 1]->getComponent<RigidBody>()->getSpeed();
+	}
+	else {
+		cam->lookAt(boliche->getComponent<Transform>()->getPosition());
+		speed = boliche->getComponent<RigidBody>()->getSpeed();
 	}
 }
 
@@ -192,7 +200,7 @@ void GameManager::createBall(bool player1)
 	}
 }
 
-void GameManager::changeScene(std::string scene) {
+void GameManager::changeScene(std::string const& scene) {
 	sceneManager.changeScene(scene);
 }
 
@@ -200,4 +208,14 @@ void GameManager::setSkins(std::string skinP1, std::string skinP2)
 {
 	player1Skin = skinP1;
 	player2Skin = skinP2;
+}
+void GameManager::endGamePhase() {
+	if (winnerTime > 0) {
+		// UI del ganador
+		winnerTime -= forge::Time::deltaTime;
+	}
+	else {
+		winnerTime = 5;
+		changeScene("TitleScreen");
+	}
 }

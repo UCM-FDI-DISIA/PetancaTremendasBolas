@@ -19,6 +19,7 @@ private:
 	bool turnStarted;
 	bool cinematicCamera;
 	bool init;
+	bool end;
 
 	//Contadores
 	int myBallCounterP1;
@@ -31,6 +32,7 @@ private:
 	float pointRadius;
 	float speed;
 	float maxForce;
+	float winnerTime;
 
 	//Vectores de bolas de los jugadores y nombres de las escenas
 	std::vector<Entity*> ballsP1;
@@ -55,6 +57,7 @@ public:
 	~GameManager();
 
 	bool initComponent(ComponentData* data) override;
+	void initVariables();
 	void update() override;
 
 	/// <summary>
@@ -62,7 +65,10 @@ public:
 	/// </summary>
 	/// <param name="player1">Booleano para saber si eres el jugador 1 o 2</param>
 	/// <returns>Los puntos para actualizar la UI</returns>
+	
 	int calculatePoints(bool player1);
+
+	void cinematicCameraPhase();
 
 	/// <summary>
 	/// Crea la bola a instanciar para el jugador
@@ -70,8 +76,7 @@ public:
 	/// <param name="player1">Para saber si se crea la bola para P1 o P2</param>
 	void createBall(bool player1);
 	void setSkins(std::string skinP1, std::string skinP2);
-	void changeScene(std::string scene);
-
-
+	void changeScene(std::string const& scene);
+	void endGamePhase();
 };
 #endif // !GAME_MANAGER_H_
