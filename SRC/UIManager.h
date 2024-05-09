@@ -19,14 +19,34 @@ private:
 public:
 	static const std::string id;
 
+	/// <summary>
+	/// Constructora del UIManager
+	/// </summary>	
 	UIManager();
 
+	/// <summary>
+	/// Destructora del UIManager
+	/// </summary>	
 	~UIManager();
 
+	/// <summary>
+	/// Inicializa la UIManager con los parametros adecuados
+	/// </summary>
+	/// <param name="data">Parametros necesarios para la iniciacion del componente</param>
 	bool initComponent(ComponentData* data) override;
 
+	/// <summary>
+	/// Actualizacion de la interfaz
+	/// </summary>
 	void update() override;
 
+	/// <summary>
+	/// Cierra el juego
+	/// </summary> 
+	void exit();
+	/// <summary>
+	/// Carga de la siguiente
+	/// </summary> 
 	void play();
 
 	/// <summary>
@@ -48,6 +68,5 @@ public:
 	/// </summary>
 	/// <param name="p1">Si es el jugador 1</param>
 	void updateTurn(bool p1);
-
 };
 #endif //!UIMANAGER_H_

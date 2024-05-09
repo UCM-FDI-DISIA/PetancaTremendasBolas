@@ -592,17 +592,36 @@ local scenes = {
         playButton = { 
             components = {
                 RectTransform = {
-                    position = {180,200},
-                    scale = {150,30}
+                    position = {resolution.x / 2 - 237.5, resolution.y / 2},
+                    scale = {475, 150}
                 },
                 Button = {
-                    depth = 2,
-                    out = "playOnOut.png",
-                    hover = "playOnOver.png",
-                    clicked = "playOnClick.png",
+					depth = 1,
+                    out = "JugarOut.png",
+                    hover = "JugarHover.png",
+                    clicked = "JugarClick.png",
 					onClickInvoker = "UIManager",
 					onClick = function (inv)
 						inv:invoke("play");
+					end
+                }
+            }
+        },
+		exitButton = { 
+            components = {
+                RectTransform = {
+                    position = {resolution.x / 2 - 237.5, resolution.y / 2 + 140},
+                    scale = {475, 150}
+                },
+                Button = {
+					depth = 1,
+                    out = "SalirOut.png",
+                    hover = "SalirHover.png",
+                    clicked = "SalirClick.png",
+					onClickInvoker = "UIManager",
+					onClick = function (inv)
+						print("hola");
+						inv:invoke("exit");
 					end
                 }
             }

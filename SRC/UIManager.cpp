@@ -1,6 +1,7 @@
 #include <SceneManager.h>
 #include <Entity.h>
 #include <Invoker.h>
+#include <MainForge.h>
 #include "UIManager.h"
 #include <Text.h>
 #include <ProgressBar.h>
@@ -8,7 +9,12 @@
 #include <Scene.h>
 const std::string UIManager::id = "UIManager";
 
-UIManager::UIManager():pointsP1(nullptr), pointsP2(nullptr), tPlayer(nullptr), forceBar(nullptr), init(false)  {
+UIManager::UIManager() : 
+	pointsP1(nullptr), 
+	pointsP2(nullptr),
+	tPlayer(nullptr), 
+	forceBar(nullptr), 
+	init(false)  {
 	
 }
 
@@ -17,12 +23,12 @@ UIManager::~UIManager() {
 }
 
 bool UIManager::initComponent(ComponentData* data) {
-	//entity->getInvoker().registerFunction("play", [&]() { play(); });
+	entity->getInvoker().registerFunction("play", [&]() { play(); });
+	entity->getInvoker().registerFunction("exit", [&]() { exit(); });
 	return true;
 }
 
-void UIManager::update()
-{
+void UIManager::update() {
 	if (!init && sceneManager.getActiveSceneId() == "Test") {
 		registerUI();
 		init = true;
@@ -31,6 +37,10 @@ void UIManager::update()
 
 void UIManager::play() {
 	sceneManager.changeScene("Valencia", true);
+}
+
+void UIManager::exit() {
+	MainForge::Exit();
 }
 
 void UIManager::registerUI() {
