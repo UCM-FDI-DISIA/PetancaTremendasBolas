@@ -410,8 +410,8 @@ local scenes = {
             handler = "Suelo",
                 components = {
                     Transform = {
-                        position = {0, -10, 0},
-                        scale = {2000,10,2000}
+                        position = {0, -10, 100},
+                        scale = {20000,10,20000}
                     },
                     RigidBody= {
                         friction=1,
@@ -434,7 +434,7 @@ local scenes = {
             handler = "cam",
             components = {
                 Transform = {
-                    position = {0, 50, 250}
+                    position = {0, 50, 150}
                 },
                 Camera = {
                     nearClipDistance = 1,

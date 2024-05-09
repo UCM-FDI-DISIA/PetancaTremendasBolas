@@ -64,7 +64,7 @@ void UIManager::updatePoints(int points, bool p1){
 	else {
 		aux = "Points p2: ";
 		aux += std::to_string(points);
-		pointsP1->setText(aux);
+		pointsP2->setText(aux);
 	}
 }
 

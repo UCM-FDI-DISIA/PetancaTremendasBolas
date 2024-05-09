@@ -20,6 +20,8 @@ private:
 	bool cinematicCamera;
 	bool init;
 	bool end;
+	bool playing;
+	bool start;
 
 	//Contadores
 	int myBallCounterP1;
@@ -59,6 +61,8 @@ public:
 	bool initComponent(ComponentData* data) override;
 	void initVariables();
 	void update() override;
+
+	void mainLoop();
 
 	/// <summary>
 	/// Metod para calcular los puntos con respecto a la distancia del boliche

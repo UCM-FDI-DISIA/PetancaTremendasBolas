@@ -15,8 +15,8 @@
 const std::string GameManager::id = "GameManager";
 
 GameManager::GameManager(): firstTurn(false),init(true), isP1(false), turnStarted(false),
-cinematicCamera(false), end(false), myBallCounterP1(0),myBallCounterP2(0),maxBalls(3),points1(0),points2(0), pointRadius(100), speed(0),
-winnerTime(5), initialCamPos(0, 0, 0) {
+cinematicCamera(false), end(false), myBallCounterP1(0),myBallCounterP2(0),maxBalls(3),points1(0),points2(0), pointRadius(1000), speed(0),
+winnerTime(5), initialCamPos(0, 0, 0), playing(false) {
 	boliche = nullptr;
 	cam = nullptr;
 	currentBall = nullptr;
@@ -46,12 +46,18 @@ void GameManager::initVariables() {
 }
 
 void GameManager::update() {
-	if(!end) {
-		if (isSelectionScene)
-		{
-			return;
-		}
+	if (playing) {
+		mainLoop();
+	}
+	else if (isSelectionScene) {
+	
+	}
+	else {
+	}
+}
 
+void GameManager::mainLoop() {
+	if (!end) {
 		/// CAMERA CINEMATICA QUE SIGUE A LA BOLA
 		if (cinematicCamera) {
 			cinematicCameraPhase();
@@ -77,7 +83,7 @@ void GameManager::update() {
 				myBallCounterP1++;
 				turnStarted = true;
 			}
-			else if(!firstTurn) {
+			else if (!firstTurn) {
 				//Lo mismo pero con P2
 				//ACTUALIZACION DEL TURNO
 				manager->updateTurn(isP1);
@@ -110,8 +116,8 @@ void GameManager::update() {
 		if (init) {
 			initVariables();
 		}
-	}	
-	else{
+	}
+	else {
 		endGamePhase();
 	}
 }
@@ -165,17 +171,28 @@ int GameManager::calculatePoints(bool player1)
 {
 	if (player1) {
 		points1 = 0;
+		int aux;
 		for (auto ball : ballsP1)
 		{
-			points1 += (int)(500 * ((float)(pointRadius - (boliche->getComponent<Transform>()->getPosition() - ball->getComponent<Transform>()->getPosition()).magnitude()) / pointRadius));
+			aux = (int)(500 * ((float)(pointRadius - (boliche->getComponent<Transform>()->getPosition() - ball->getComponent<Transform>()->getPosition()).magnitude()) / pointRadius));
+			if (aux < 0.0f) {
+				aux = 0;
+			}
+			points1 += aux;
 		}
+		
 		manager->updatePoints(points1, player1);
 	}
 	else {
 		points2 = 0;
+		int aux;
 		for (auto ball : ballsP2)
 		{
-			points2 += (int)(500 * ((float)(pointRadius - (boliche->getComponent<Transform>()->getPosition() - ball->getComponent<Transform>()->getPosition()).magnitude()) / pointRadius));
+			aux = (int)(500 * ((float)(pointRadius - (boliche->getComponent<Transform>()->getPosition() - ball->getComponent<Transform>()->getPosition()).magnitude()) / pointRadius));
+			if (aux < 0.0f) {
+				aux = 0;
+			}
+			points2 += aux;
 		}
 		manager->updatePoints(points2, player1);
 
@@ -212,7 +229,7 @@ void GameManager::setSkins(std::string skinP1, std::string skinP2)
 void GameManager::endGamePhase() {
 	if (winnerTime > 0) {
 		// UI del ganador
-		winnerTime -= forge::Time::deltaTime;
+		winnerTime -= static_cast<float>(forge::Time::deltaTime);
 	}
 	else {
 		winnerTime = 5;
