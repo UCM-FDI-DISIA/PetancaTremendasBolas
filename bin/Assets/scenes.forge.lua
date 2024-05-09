@@ -132,7 +132,17 @@ local scenes = {
         GameManager = {
             handler = "GameManager",
                 components = {
-                    GameManager = 0
+                    GameManager = 0,
+                    RectTransform = {
+                        position = {125, 350},
+                        scale = {300, 100}
+                    },
+                    ProgressBar = {
+                        front = "angry.png",
+                        back = "angryBg.png",
+                        growth = "LEFT_TO_RIGHT",
+                        depth = 3
+                    }
                 }
         },
         suelo = {

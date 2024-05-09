@@ -167,6 +167,17 @@ void ShootComponent::activateStrengthControl() {
 	strengthControl = true;
 }
 
+
+float ShootComponent::getForce()
+{
+	return force;
+}
+
+float ShootComponent::getMaxForce()
+{
+	return maxForce;
+}
+
 void ShootComponent::deactivateStrengthControl() {
 	strengthControl = false;
 }

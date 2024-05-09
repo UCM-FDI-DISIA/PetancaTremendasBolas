@@ -5,6 +5,8 @@
 #include <Transform.h>
 #include <RigidBody.h>
 #include "ShootComponent.h"
+#include <ProgressBar.h>
+
 //#include <Serializer.h>
 const std::string GameManager::id = "GameManager";
 
@@ -21,6 +23,8 @@ GameManager::~GameManager() {
 bool GameManager::initComponent(ComponentData* data) {
 	ballsP1 = std::vector<Entity*>();
 	ballsP2 = std::vector<Entity*>();
+	bar = this->getEntity()->getComponent<ProgressBar>();
+	
 	return true;
 }
 
@@ -74,6 +78,7 @@ void GameManager::update() {
 	else if (!turnStarted && !cinematicCamera && !init) {
 		if (firstTurn) {
 			turnStarted = boliche->getComponent<ShootComponent>()->hasShot();
+			bar->setValue(currentBall->getForce() / maxForce);
 			if (turnStarted) {
 				speed = 100;
 				cinematicCamera = turnStarted;
@@ -95,11 +100,13 @@ void GameManager::update() {
 	//Si el turno ha empezado y no estamos en camara cinematica
 	if (turnStarted && !cinematicCamera) {
 		if (isP1) {
-			cinematicCamera = ballsP1[myBallCounterP1-1]->getComponent<ShootComponent>()->hasShot();
+			cinematicCamera = currentBall->hasShot();
+			bar->setValue(currentBall->getForce() / maxForce);
 			speed = 100;
 		}
 		else {
-			cinematicCamera = ballsP2[myBallCounterP2-1]->getComponent<ShootComponent>()->hasShot();
+			cinematicCamera = currentBall->hasShot();
+			bar->setValue(currentBall->getForce() / maxForce);		
 			speed = 100;
 		}
 	}
@@ -107,6 +114,8 @@ void GameManager::update() {
 	if (init) {
 		init = false;
 		boliche = sceneManager.instantiateBlueprint("boliche");
+		currentBall = boliche->getComponent<ShootComponent>();
+		maxForce = currentBall->getMaxForce();
 		cam = sceneManager.getActiveScene()->getEntityByHandler("cam")->getComponent<Transform>();
 		initialCamPos = cam->getPosition();
 		firstTurn = true;
@@ -137,9 +146,11 @@ void GameManager::createBall(bool player1)
 	//Crea la bola para el jugador uno si es su turno
 	if (player1) {
 		ballsP1.push_back(sceneManager.instantiateBlueprint("ball"));
+		currentBall = ballsP1[myBallCounterP1]->getComponent<ShootComponent>();
 	}
 	//Crea la bola para el jugador dos si es su turno
 	else {
 		ballsP2.push_back(sceneManager.instantiateBlueprint("ball"));
+		currentBall = ballsP2[myBallCounterP2]->getComponent<ShootComponent>();
 	}
 }

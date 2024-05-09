@@ -44,5 +44,8 @@ public:
 	void activateStrengthControl();
 	void deactivateStrengthControl();
 	bool hasShot();
+
+	float getForce();
+	float getMaxForce();
 }; 
 #endif // SHOOT_COMPONENT_H_
