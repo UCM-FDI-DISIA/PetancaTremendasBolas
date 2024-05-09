@@ -13,7 +13,6 @@ namespace forge {
 class GameManager:public Component {
 private:
 	bool isP1;
-	bool ballCreated;
 	bool firstTurn;
 	bool turnStarted;
 	bool cinematicCamera;
@@ -29,7 +28,6 @@ private:
 	std::vector<Entity*> ballsP2;
 	std::vector<std::string> sceneNames;
 	Entity* boliche;
-	float cameraOffset;
 	Transform* cam;
 	forge::Vector3 initialCamPos;
 public:

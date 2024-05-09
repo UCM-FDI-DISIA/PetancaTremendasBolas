@@ -3,10 +3,10 @@ local prefabs = {
         handler = "ball",
             components = {
                 Transform = {
-                    position = {0, 50, 0}
+                    position = {0, 50, 0},
+                    scale = {5, 5, 5}
                 },
                 RigidBody = {
-                    scale = {5, 5, 5},
                     mass = 0.01,
                     gravity = {0,-9.8,0},
                     friction = 1,
@@ -18,8 +18,12 @@ local prefabs = {
                 },
                 ShootComponent = {
                     maxForce=500
-                }
-            }
+                },
+                Mesh={
+                    mesh ="Bola.mesh",
+                    material= "MatPePa"
+                 }
+        }
     },
     
     boliche = {
@@ -133,19 +137,20 @@ local scenes = {
         },
         suelo = {
             handler = "Suelo",
-            components = {
-                Transform = {
-                    position = {0, -10, 0}
-                },
-                RigidBody= {
-                    scale = {500,10,500},
-                    static = true
-				},
-                Collider = {
-                    scale = {1000, 5, 1000}
+                components = {
+                    Transform = {
+                        position = {0, -10, 0},
+                        scale = {200,10,200}
+                    },
+                    RigidBody= {
+                        friction=1,
+                        static = true
+                    },
+                    Mesh={
+                        mesh ="sphere.mesh",
+                    }
                 }
-            }
-		},
+        },
         player = {
            	handler = "Player",
             components = {
