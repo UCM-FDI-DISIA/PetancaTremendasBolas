@@ -3,10 +3,10 @@ local prefabs = {
         handler = "ball",
             components = {
                 Transform = {
-                    position = {0, 50, 0}
+                    position = {0, 50, 0},
+                    scale = {5, 5, 5}
                 },
                 RigidBody = {
-                    scale = {5, 5, 5},
                     mass = 0.01,
                     gravity = {0,-9.8,0},
                     friction = 1,
@@ -18,8 +18,12 @@ local prefabs = {
                 },
                 ShootComponent = {
                     maxForce=500
-                }
-            }
+                },
+                Mesh={
+                    mesh ="Bola.mesh",
+                    material= "MatPePa"
+                 }
+        }
     },
     
     boliche = {
@@ -32,7 +36,7 @@ local prefabs = {
                      scale = {2, 2, 2},
                      mass = 0.005,
                     gravity = {0,-9.8,0},
-                    friction = 0.5,
+                    friction = 1,
                     restitution = 0,
                     shapeType = "Sphere",
                     static = false,
@@ -58,12 +62,16 @@ local scenes = {
             handler = "Suelo",
                 components = {
                     Transform = {
-                        position = {0, -10, 0}
+                        position = {0, -10, 0},
+                        scale = {200,10,200}
                     },
                     RigidBody= {
-                        scale = {500,10,500},
+                        friction=1,
                         static = true
                     },
+                    Mesh={
+                        mesh ="sphere.mesh",
+                     }
                 }
         },
         cam = {
@@ -86,116 +94,10 @@ local scenes = {
                     position = {20, 80, 0}
                 },
                 Light = {
-                    type = 0
+                    type = 0 
                 }
             }
         }
-    },
-
-    SkinSelection = {
-        previewBall = {
-            handler = "PreviewBall",
-            components = {
-                Transform = {
-                    position = {0, 0, 0}
-                },
-                Mesh = {
-                    mesh = "Bola.mesh"
-                },
-                RotateComponent = {
-					rotationSpeed = 60
-				}
-            }
-        },
-        selectionManager = {
-            handler = "SelectionManager",
-            components = {
-                Transform = {
-                    position = {0, 0, 0}
-                },
-                SelectionManager = {
-                    materials = {
-						"MatPePa",
-						"MatRojo",
-                        "MatCarlos",
-                        "MatRome",
-                        "MatBolaDragon",
-                        "MatTenis"
-					}
-                }
-            }
-        },
-        cam = {
-            handler = "cam",
-            components = {
-                Transform = {
-                    position = {0, 0, 10}
-                },
-                Camera = {
-                    nearClipDistance = 1,
-                    autoAspectRatio = true,
-                    backgroundColor = {0.6, 0.3, 0.3}
-                },
-                AudioListener = 0
-            }
-        },
-        leftArrow = {
-            handler = "Arrow",
-			components = {
-				RectTransform = {
-					position = {100, 200},
-                    scale = {100, 100}
-				},
-                Button = {
-                    out = "panko.png",
-                    clicked = "panko.png",
-                    hover = "panko.png",
-					onClick = function (inv)
-                        print("holi");
-	                    inv:invoke("moveLeft");
-                        print("holi2");
-                    end 
-				}
-			}
-		},
-        rightArrow = {
-            handler = "rArrow",
-			components = {
-				RectTransform = {
-					position = {450, 200},
-                    scale = {100, 100}
-				},
-                Button = {
-                    out = "panko.png",
-                    clicked = "panko.png",
-                    hover = "panko.png",
-					onClick = function (inv)
-                        print("holi");
-	                    inv:invoke("moveRight");
-                        print("holi2");
-                    end 
-				}
-			}
-		},
-        selectButton = {
-            handler = "selectButton",
-			components = {
-				RectTransform = {
-					position = {275, 350},
-                    scale = {100, 100}
-				},
-                Button = {
-                    out = "panko.png",
-                    clicked = "panko.png",
-                    hover = "panko.png",
-					onClick = function (inv)
-                        print("holi");
-	                    inv:invoke("selectSkin");
-                        print("holi2");
-                    end 
-				}
-			}
-		}
     }
 }
 
