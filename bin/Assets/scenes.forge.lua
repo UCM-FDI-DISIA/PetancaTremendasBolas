@@ -476,7 +476,7 @@ local scenes = {
 			handler = "PreviewMap",
 			components = {
 				RectTransform = {
-					position = {resolution.x/2 - 120, resolution.y/2 - 100},
+					position = {Window["width"]/2 - 120, Window["height"] - 100},
 					scale = {240, 200}
 				},
 				Image = {
@@ -525,7 +525,7 @@ local scenes = {
             handler = "Arrow",
 			components = {
 				RectTransform = {
-					position = {resolution.x/2 - 200 - 50, resolution.y/2},
+					position = {Window["width"]/2 - 200 - 50, Window["height"]/2},
                     scale = {100, 100}
 				},
 				SelectionArrowComponent = 0,
@@ -543,7 +543,7 @@ local scenes = {
             handler = "rArrow",
 			components = {
 				RectTransform = {
-					position = {resolution.x/2 + 200 - 50, resolution.y/2},
+					position = {Window["width"]/2 + 200 - 50, Window["height"]/2},
                     scale = {100, 100}
 				},
 				SelectionArrowComponent = 0,
@@ -563,7 +563,7 @@ local scenes = {
             handler = "selectButton",
 			components = {
 				RectTransform = {
-					position = {resolution.x/2 - 50, resolution.y/2 + 150},
+					position = {Window["width"]/2 - 50, Window["height"] + 150},
                     scale = {100, 100}
 				},
 				SelectionArrowComponent = 0,
@@ -615,7 +615,7 @@ local scenes = {
         playButton = { 
             components = {
                 RectTransform = {
-                    position = {Window["width"] / 2 - 237.5, Window["height"] / 2},
+                    position = {2*Window["width"] / 3, 3* Window["height"] / 4},
                     scale = {475, 150}
                 },
                 Button = {
