@@ -149,6 +149,9 @@ local prefabs = {
 					RigidBody= {
 						static = true,
 						friction = 0.1						
+					},
+					Mesh = {
+						mesh = "cube.mesh"
 					}
 				}
 			},
@@ -163,6 +166,9 @@ local prefabs = {
 					RigidBody= {
 						static = true,
 						friction = 0.1						
+					},
+					Mesh = {
+						mesh = "Cylinder.mesh"
 					}
 				}
 			},
@@ -177,6 +183,9 @@ local prefabs = {
 					RigidBody= {
 						static = true,
 						friction = 0.1						
+					},
+					Mesh = {
+						mesh = "cube.mesh"
 					}
 				}
 			},
@@ -191,6 +200,9 @@ local prefabs = {
 					RigidBody= {
 						static = true,
 						friction = 0.1						
+					},
+					Mesh = {
+						mesh = "cube.mesh"
 					}
 				}
 			}
@@ -213,13 +225,15 @@ local prefabs = {
 	Hielo= {
 		components = {
 			Transform= {
-				position = {33,0.5,-35.7},
-				rotation = {3.1415/2,0,0,1},
-				scale = {0.9,0.2,0.2}
+				position = {0,0,0},
+				rotation = {0,0,0,1},
+				scale = {9,2,2}
 			},
-			Collider = 0,
+			Collider = {
+
+			},
 			Mesh = {
-				mesh = "Crate.mesh"
+				mesh = "cube.mesh"
 			}
 		}
 	},
@@ -231,9 +245,11 @@ local prefabs = {
 				rotation = {0,0,0,1},
 				scale = {3,5,5}
 			},
-			Collider=0,
+			Collider={
+
+			},
 			Mesh = {
-				mesh = "porton.mesh"
+				mesh = "cube.mesh"
 			}
 		}
 	},
@@ -245,9 +261,11 @@ local prefabs = {
 				rotation = {0,0,0,1},
 				scale = {5,5,5}
 			},
-			Collider=0,
+			Collider = {
+
+			},
 			Mesh = {
-				mesh = "porton.mesh"
+				mesh = "cube.mesh"
 			}
 		}
 	},
@@ -257,13 +275,13 @@ local prefabs = {
 			Transform= {
 				position = {-72.04169,-35.78901,37.71354},
 				rotation = {0,0,0,1},
-				scale = {20,20,20}
+				scale = {7,50,7}
 			},
 			Collider = {
 				shapeType = "Cylinder"				
 			},
 			Mesh = {
-				mesh = "column.mesh"
+				mesh = "Cylinder.mesh"
 			}
 		}
 	},
@@ -273,13 +291,13 @@ local prefabs = {
 			Transform= {
 				position = {-89.1,-48.7446,-15.3},
 				rotation = {0,0,0,1},
-				scale = {30,23.679,30}
+				scale = {17,50,17}
 			},
 			Collider = {
 				shapeType = "Cylinder"				
 			},
 			Mesh = {
-				mesh = "column.mesh"
+				mesh = "Cylinder.mesh"
 			}
 		}
 	},
@@ -291,9 +309,11 @@ local prefabs = {
 				rotation = {0,0.6755902,0,0.7372774},
 				scale = {4,4,4}
 			},
-			Collider=0,
+			Collider={
+
+			},
 			Mesh = {
-				mesh = "Building.mesh"
+				mesh = "cube.mesh"
 			}
 		}
 	},
@@ -305,9 +325,11 @@ local prefabs = {
 				rotation = {0,0.6755902,0,0.7372774},
 				scale = {3,3,3}
 			},
-			Collider=0,
+			Collider={
+
+			},
 			Mesh = {
-				mesh = "Building.mesh"
+				mesh = "cube.mesh"
 			}
 		}
 	},
@@ -318,9 +340,6 @@ local prefabs = {
 				position = {32.7,1.18,-5},
 				rotation = {0,0,0,1},
 				scale = {10,10,10}
-			},
-			Collider = {
-				shapeType = "Cylinder"				
 			},
 			Mesh = {
 				mesh = "Fountain.mesh"
@@ -658,6 +677,25 @@ local scenes = {
                     GameManager = 0
                 }
         },
+		uiManager = {
+			handler = "UIManager",
+			components = {
+				UIManager = 0
+			}
+		},
+		TextoEsc = {
+			components = {
+				RectTransform = {
+					position = {Window["width"]/2-150, 10},
+					scale = {1, 1}
+				},
+				Text = {
+                    text = "El Escorial",
+                    fontName = "Willow.ttf",
+                    fontHeight = 100
+				}
+			}
+		},
         suelo = {
             handler = "Suelo",
                 components = {
@@ -686,7 +724,7 @@ local scenes = {
             handler = "cam",
             components = {
                 Transform = {
-                    position = {35, 15, 120}
+                    position = {35, 15, 100}
                 },
                 Camera = {
                     nearClipDistance = 1,
@@ -732,57 +770,57 @@ local scenes = {
 			blueprint = "Hielo",
 			components = {
 				Transform= {
-					position = {33,0.5,-35.7},
+					position = {33,7,-25},
 					rotation = {0,0,0,1},
-					scale = {0.9,0.2,0.2}
+					scale = {33,13,6}
 				}
 			}
 		},
 
 		PortonesReales= {
+	components = {
+		Transform= {
+			position = {43.90685,10,13.37777},
+			rotation = {0,0,0,1},
+			scale = {1,1,1}
+		}
+	},
+	children = {
+		
+		PortonLateral2= {
+			blueprint = "PortonLateral",
 			components = {
 				Transform= {
-					position = {43.90685,87.87549,13.37777},
+					position = {-43.90685,0,19.09224},
 					rotation = {0,0,0,1},
-					scale = {1,1,1}
-				}
-			},
-			children = {
-				
-				PortonLateral2= {
-					blueprint = "PortonLateral",
-					components = {
-						Transform= {
-							position = {-43.90685,-87.37549,19.09224},
-							rotation = {0,0,0,1},
-							scale = {3,5,5}
-						}
-					}
-				},
-				
-				PortonCentral1= {
-					blueprint = "PortonCentral",
-					components = {
-						Transform= {
-							position = {-10.77684,-87.37549,19.09224},
-							rotation = {0,0,0,1},
-							scale = {5,5,5}
-						}
-					}
-				},
-				
-				PortonLateral3= {
-					blueprint = "PortonLateral",
-					components = {
-						Transform= {
-							position = {22.09315,-87.37549,19.09224},
-							rotation = {0,0,0,1},
-							scale = {3,5,5}
-						}
-					}
+					scale = {12,20,2}
 				}
 			}
 		},
+		
+		PortonCentral1= {
+			blueprint = "PortonCentral",
+			components = {
+				Transform= {
+					position = {-10.77684,0,19.09224},
+					rotation = {0,0,0,1},
+					scale = {12,20,2}
+				}
+			}
+		},
+		
+		PortonLateral3= {
+			blueprint = "PortonLateral",
+			components = {
+				Transform= {
+					position = {22.09315,0,19.09224},
+					rotation = {0,0,0,1},
+					scale = {12,20,2}
+				}
+			}
+		}
+	}
+},
 
 		ColumnasReales= {
 			components = {
@@ -793,58 +831,57 @@ local scenes = {
 				}
 			},
 			children = {
-				
 				Column4= {
 					blueprint = "Column",
 					components = {
 						Transform= {
-							position = {-72.04169,-35.78901,37.71354},
+							position = {-72.04169,-10,37.71354},
 							rotation = {0,0,0,1},
-							scale = {20,20,20}
+							scale = {7,50,7}
 						}
 					}
 				},
-				
+
 				Column5= {
 					blueprint = "Column",
 					components = {
 						Transform= {
-							position = {-8.541687,-35.78901,37.71354},
+							position = {-8.541687,-10,37.71354},
 							rotation = {0,0,0,1},
-							scale = {20,20,20}
+							scale = {7,50,7}
 						}
 					}
 				},
-				
+
 				Column6= {
 					blueprint = "Column",
 					components = {
 						Transform= {
-							position = {-76.34169,-35.78901,1.913536},
+							position = {-76.34169,-10,1.913536},
 							rotation = {0,0,0,1},
-							scale = {20,20,20}
+							scale = {7,50,7}
 						}
 					}
 				},
-				
+
 				Column7= {
 					blueprint = "Column",
 					components = {
 						Transform= {
-							position = {-2.141685,-35.78901,0.2135353},
+							position = {-2.141685,-10,0.2135353},
 							rotation = {0,0,0,1},
-							scale = {20,20,20}
+							scale = {7,50,7}
 						}
 					}
 				},
-				
+
 				BigColumn8= {
 					blueprint = "BigColumn",
 					components = {
 						Transform= {
-							position = {-89.1,-48.7446,-15.3},
+							position = {-89.1,-10,-15.3},
 							rotation = {0,0,0,1},
-							scale = {30,23.679,30}
+							scale = {17,50,17}
 						}
 					}
 				},
@@ -853,9 +890,9 @@ local scenes = {
 					blueprint = "BigColumn",
 					components = {
 						Transform= {
-							position = {-77.1,-48.7446,-26.5},
+							position = {-77.1,-10,-26.5},
 							rotation = {0,0,0,1},
-							scale = {30,23.679,30}
+							scale = {17,50,17}
 						}
 					}
 				},
@@ -864,9 +901,9 @@ local scenes = {
 					blueprint = "BigColumn",
 					components = {
 						Transform= {
-							position = {-62.2,-48.7446,-34},
+							position = {-62.2,-10,-34},
 							rotation = {0,0,0,1},
-							scale = {30,23.679,30}
+							scale = {17,50,17}
 						}
 					}
 				},
@@ -875,9 +912,9 @@ local scenes = {
 					blueprint = "BigColumn",
 					components = {
 						Transform= {
-							position = {-46.8,-48.7446,-39.60001},
+							position = {-46.8,-10,-39.60001},
 							rotation = {0,0,0,1},
-							scale = {30,23.679,30}
+							scale = {17,50,17}
 						}
 					}
 				},
@@ -886,9 +923,9 @@ local scenes = {
 					blueprint = "BigColumn",
 					components = {
 						Transform= {
-							position = {-30.10001,-48.7446,-39.60001},
+							position = {-30.10001,-10,-39.60001},
 							rotation = {0,0,0,1},
-							scale = {30,23.679,30}
+							scale = {17,50,17}
 						}
 					}
 				},
@@ -897,9 +934,9 @@ local scenes = {
 					blueprint = "BigColumn",
 					components = {
 						Transform= {
-							position = {-14.2,-48.7446,-37},
+							position = {-14.2,-10,-37},
 							rotation = {0,0,0,1},
-							scale = {30,23.679,30}
+							scale = {17,50,17}
 						}
 					}
 				},
@@ -908,9 +945,9 @@ local scenes = {
 					blueprint = "BigColumn",
 					components = {
 						Transform= {
-							position = {0.9,-48.7446,-29.7},
+							position = {0.9,-10,-29.7},
 							rotation = {0,0,0,1},
-							scale = {30,23.679,30}
+							scale = {17,50,17}
 						}
 					}
 				},
@@ -919,9 +956,9 @@ local scenes = {
 					blueprint = "BigColumn",
 					components = {
 						Transform= {
-							position = {12.2,-48.7446,-18.8},
+							position = {12.2,-10,-18.8},
 							rotation = {0,0,0,1},
-							scale = {30,23.679,30}
+							scale = {17,50,17}
 						}
 					}
 				}
@@ -942,9 +979,9 @@ local scenes = {
 					blueprint = "EdificioGrande",
 					components = {
 						Transform= {
-							position = {94.8,9.1,47.6},
+							position = {78,9.1,-20},
 							rotation = {0,0.6755902,0,0.7372774},
-							scale = {4,4,4}
+							scale = {120,25,5}
 						}
 					}
 				},
@@ -953,9 +990,9 @@ local scenes = {
 					blueprint = "EdificioMediano",
 					components = {
 						Transform= {
-							position = {96.2,7.4,-6.22},
+							position = {68,6,60},
 							rotation = {0,0.6755902,0,0.7372774},
-							scale = {3,3,3}
+							scale = {40,12,3}
 						}
 					}
 				}
@@ -976,9 +1013,9 @@ local scenes = {
 					blueprint = "EdificioGrande",
 					components = {
 						Transform= {
-							position = {9.401261,-4.880364,0.4770088},
+							position = {12,-4.880364,0.4770088},
 							rotation = {0,0.7489557,0,0.6626201},
-							scale = {4,4,4}
+							scale = {120,25,5}
 						}
 					}
 				},
@@ -987,9 +1024,9 @@ local scenes = {
 					blueprint = "EdificioMediano",
 					components = {
 						Transform= {
-							position = {1.9,-7.28,-53.32},
+							position = {4,-7.28,-70},
 							rotation = {0,0.7489557,0,0.6626201},
-							scale = {3,3,3}
+							scale = {40,12,3}
 						}
 					}
 				}
@@ -1003,6 +1040,18 @@ local scenes = {
 					position = {32.7,1.18,-5},
 					rotation = {1,0,0,1},
 					scale = {10,10,10}
+				}
+			}
+		},
+		FuenteCol= {
+			components = {
+				Transform= {
+					position = {32.7,1.18,-5},
+					rotation = {0,0,0,1},
+					scale = {24,30,24}
+				},
+				Collider = {
+					shapeType = "Cylinder"				
 				}
 			}
 		}
