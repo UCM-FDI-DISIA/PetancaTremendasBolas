@@ -9,6 +9,7 @@
 #include <limits>
 #include <Serializer.h>
 #include <TimeForge.h>
+#include<AudioSource.h>
 #define PI 3.14159265359
 
 const std::string ShootComponent::id = "ShootComponent";
@@ -148,6 +149,7 @@ void ShootComponent::update() {
 			myRigidBody->applyForce(forceVector);
 			force = 0;
 			strengthControl = false;
+			scene->getEntityByHandler("cam")->getComponent<AudioSource>()->play();
 			this->setEnabled(false);
 		}
 	}

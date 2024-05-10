@@ -10,6 +10,7 @@
 #include "UIManager.h"
 #include <TimeForge.h>
 #include <Mesh.h>
+#include <AudioSource.h>
 
 //#include <Serializer.h>
 const std::string GameManager::id = "GameManager";
@@ -30,7 +31,7 @@ GameManager::~GameManager() {
 bool GameManager::initComponent(ComponentData* data) {
 	ballsP1 = std::vector<Entity*>(0);
 	ballsP2 = std::vector<Entity*>(0);
-	
+	entity->getComponent<AudioSource>()->play();
 	return true;
 }
 
@@ -54,11 +55,6 @@ void GameManager::initVariables() {
 void GameManager::update() {
 	if (playing) {
 		mainLoop();
-	}
-	else if (isSelectionScene) {
-	
-	}
-	else {
 	}
 }
 
@@ -88,6 +84,7 @@ void GameManager::mainLoop() {
 				createBall(isP1);
 				myBallCounterP1++;
 				turnStarted = true;
+				scene->getEntityByHandler("cambioTurn")->getComponent<AudioSource>()->play();
 			}
 			else if (!firstTurn) {
 				//Lo mismo pero con P2
@@ -97,6 +94,7 @@ void GameManager::mainLoop() {
 				createBall(isP1 && !firstTurn);
 				myBallCounterP2++;
 				turnStarted = true;
+				scene->getEntityByHandler("cambioTurn")->getComponent<AudioSource>()->play();
 			}
 		}
 		//Si el turno ha empezado y no estamos en camara cinematica
@@ -122,6 +120,7 @@ void GameManager::mainLoop() {
 		if (init) {
 			initVariables();
 		}
+		checkCollisions();
 	}
 	else {
 		endGamePhase();
@@ -261,6 +260,7 @@ void GameManager::endGamePhase() {
 		sceneManager.getActiveScene()->getEntityByHandler("Turn")->getComponent<Text>()->setText("");
 		sceneManager.instantiateBlueprint("WinnerText")->getComponent<Text>()->setText((points1 > points2) ? "Ganador : Jugador 1" : "Ganador : Jugador 2");
 		endUI = true;
+ 		scene->getEntityByHandler("sonidoFinal")->getComponent<AudioSource>()->play();
 	}
 	if (winnerTime > 0) {
 		winnerTime -= static_cast<float>(forge::Time::deltaTime);
@@ -295,4 +295,21 @@ void GameManager::setPlaying(bool play) {
 
 	ballsP1.clear();
 	ballsP2.clear();
+}
+
+void GameManager::checkCollisions() {
+	for (auto& ball : ballsP1) {
+		for (auto& ball2 : ballsP2) {
+			if (ball->getComponent<RigidBody>()->hasCollidedWith(ball2))
+			{
+				ball->getComponent<AudioSource>()->play();
+			}
+		}
+		for (auto& ball1 : ballsP1) {
+			if (ball != ball1&& ball->getComponent<RigidBody>()->hasCollidedWith(ball1))
+			{
+				ball->getComponent<AudioSource>()->play();
+			}
+		}
+	}
 }

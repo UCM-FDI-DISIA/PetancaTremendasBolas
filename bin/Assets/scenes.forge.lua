@@ -20,7 +20,10 @@ local prefabs = {
                 },
                 Mesh={
                     mesh ="Bola.mesh"
-            }
+            },
+			AudioSource = {
+				sound = "choque"
+			}
         }
     },
     
@@ -56,9 +59,13 @@ local prefabs = {
 				position = {0,-0.9,-11.4},
 				scale = {1,1,1}
 			},
-			Collider = {
-
-			},
+			RigidBody = { 
+                mass = 0,
+                restitution = 0.8,
+                shapeType = "cube",
+                static = true,
+                layer = "ALL"
+            },
 			Mesh = {
 				mesh = "paellera.mesh"			
 			}
@@ -380,11 +387,16 @@ local prefabs = {
 
 local keepBetweenScenes = {
 	GameManager = {
-		handler = "GameManager",
-			components = {
-				GameManager = 0,
-			}
-	},
+        handler = "GameManager",
+            components = {
+                GameManager = 0,
+				AudioSource={
+					sound="mainTheme",
+					sound2D=true,
+					volume=0.1
+				}
+            }
+   		 }
 }
 
 local scenes = {
@@ -396,6 +408,30 @@ local scenes = {
                     UIManager = 0,
                 }
         },
+		cambioTurn= {
+			handler = "cambioTurn",
+			components = {
+				Transform= {
+				position = {0,0,0}
+				},
+				AudioSource={
+				sound="cambioTurn",
+				sound2D=true
+				}
+			}
+		},
+		sonidoFinal= {
+			handler = "sonidoFinal",
+			components = {
+				Transform= {
+				position = {0,0,0}
+				},
+				AudioSource={
+				sound="endgame",
+				sound2D=true
+				}
+			}
+		},
         ForceBar = {
             handler = "ForceBar",
             components = {
@@ -530,7 +566,10 @@ local scenes = {
                     autoAspectRatio = true,
                     backgroundColor = {0.0, 0.2, 0.6}
                 },
-                AudioListener = 0
+                AudioListener = 0,
+				AudioSource = {
+					sound = "lanza"
+				}
             }
         },
         luz = {
@@ -625,6 +664,10 @@ local scenes = {
 					onClick = function (inv)
 	                    inv:invoke("left");
                     end 
+				},
+				AudioSource ={
+					sound ="pressButton",
+					sound2D=true
 				}
 			}
 		},
@@ -644,6 +687,10 @@ local scenes = {
 	                    inv:invoke("right");
                     end 
 				},
+				AudioSource ={
+					sound ="pressButton",
+					sound2D=true
+				}
 			}
 		},
         selectButton = {
@@ -661,6 +708,10 @@ local scenes = {
 					onClick = function (inv)
 	                    inv:invoke("select");
                     end 
+				},
+				AudioSource ={
+					sound ="pressButton",
+					sound2D=true
 				}
 			}
 		}
@@ -713,7 +764,11 @@ local scenes = {
 					onClick = function (inv)
 						inv:invoke("play");
 					end
-                }
+                },
+				AudioSource ={
+					sound ="pressButton",
+					sound2D=true
+				}
             }
         },
 		exitButton = { 
@@ -732,7 +787,11 @@ local scenes = {
 						print("hola");
 						inv:invoke("exit");
 					end
-                }
+                },
+				AudioSource ={
+					sound ="pressButton",
+					sound2D=true
+				}
             }
         }
     },
@@ -773,6 +832,30 @@ local scenes = {
                     }
                 }
         },
+		cambioTurn= {
+			handler = "cambioTurn",
+			components = {
+				Transform= {
+				position = {0,0,0}
+				},
+				AudioSource={
+				sound="cambioTurn",
+				sound2D=true
+				}
+			}
+		},
+		sonidoFinal= {
+			handler = "sonidoFinal",
+			components = {
+				Transform= {
+				position = {0,0,0}
+				},
+				AudioSource={
+				sound="endgame",
+				sound2D=true
+				}
+			}
+		},
         player = {
            	handler = "Player",
             components = {
@@ -1127,16 +1210,34 @@ local scenes = {
 	},
 --VALENCIA
 	Valencia = {
-		GameManager = {
-		handler = "GameManager",
-			components = {
-				GameManager = 0
-			}
-		},
 		uiManager = {
 		handler = "UIManager",
 			components = {
 				UIManager = 0
+			}
+		},
+		cambioTurn= {
+			handler = "cambioTurn",
+			components = {
+				Transform= {
+				position = {0,0,0}
+				},
+				AudioSource={
+				sound="cambioTurn",
+				sound2D=true
+				}
+			}
+		},
+		sonidoFinal= {
+			handler = "sonidoFinal",
+			components = {
+				Transform= {
+				position = {0,0,0}
+				},
+				AudioSource={
+				sound="endgame",
+				sound2D=true
+				}
 			}
 		},
 		ForceBar = {
@@ -1663,6 +1764,17 @@ local scenes = {
 				},
 				Mesh = {
 					mesh = "fountainRoundDetail.mesh"				
+				}
+			}
+		},
+		SueloFantasma = {
+			components = {
+				Transform = {
+					position = {0,-1100,0},
+					scale = {2000,2000,2000}
+				},
+				Collider = {
+
 				}
 			}
 		}

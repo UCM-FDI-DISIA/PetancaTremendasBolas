@@ -51,7 +51,6 @@ private:
 	forge::Vector3 initialCamPos;
 
 	//Valores relacionados con la seleccion de skins
-	bool isSelectionScene;
 	std::string player1Skin;
 	std::string player2Skin;
 	std::string mapSelected;
@@ -87,5 +86,6 @@ public:
 	void changeScene(std::string const& scene);
 	void endGamePhase();
 	void setPlaying(bool playing);
+	void checkCollisions();
 };
 #endif // !GAME_MANAGER_H_
