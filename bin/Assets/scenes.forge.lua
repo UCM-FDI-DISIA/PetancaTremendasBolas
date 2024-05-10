@@ -802,7 +802,7 @@ local scenes = {
                 },
                 AudioListener = 0
             }
-        }
+        },
     	luz = {
         	components = {
             	Transform = {
