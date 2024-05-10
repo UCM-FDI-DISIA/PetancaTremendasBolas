@@ -41,7 +41,6 @@ void UIManager::play() {
 		myGameManager = sceneManager.getActiveScene()->getEntityByHandler("GameManager")->getComponent<GameManager>();
 	}
 	sceneManager.changeScene("SkinSelection", true);
-	//myGameManager->setPlaying(true);
 }
 
 void UIManager::exit() {

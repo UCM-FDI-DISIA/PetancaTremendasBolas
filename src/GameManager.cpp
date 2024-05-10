@@ -267,7 +267,7 @@ void GameManager::endGamePhase() {
 	}
 	else {
 		winnerTime = 5;
-
+		setPlaying(false);
 		changeScene("TitleScreen");
 	}
 }

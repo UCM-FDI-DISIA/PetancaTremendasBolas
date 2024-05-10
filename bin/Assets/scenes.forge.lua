@@ -46,7 +46,7 @@ local prefabs = {
             },
 			Mesh={
 				mesh ="Bola.mesh",
-				material= "MatPePa"
+				material= "MatBoliche"
 			 }
         }
     },
@@ -372,18 +372,17 @@ local prefabs = {
 }
 
 local keepBetweenScenes = {
-
+	GameManager = {
+		handler = "GameManager",
+			components = {
+				GameManager = 0,
+			}
+	},
 }
 
 local scenes = {
 -- TEST
     Test = {
-        GameManager = {
-            handler = "GameManager",
-                components = {
-                    GameManager = 0,
-                }
-        },
         UIManager = {
             handler = "UIManager",
                 components = {
@@ -467,7 +466,7 @@ local scenes = {
                 components = {
                     Transform = {
 						position = {500, 0, 100},
-                        scale = {10,50,1000}
+                        scale = {30,50,1000}
                     },
                     Collider= {
 
@@ -481,7 +480,7 @@ local scenes = {
 			components = {
 				Transform = {
 					position = {-500, 0, 100},
-					scale = {10,50,1000}
+					scale = {30,50,1000}
 				},
 				Collider= {
 
@@ -495,7 +494,7 @@ local scenes = {
 		components = {
 			Transform = {
 				position = {0, 0, -300},
-				scale = {1000,50,10}
+				scale = {1000,50,50}
 			},
 			Collider= {
 
@@ -613,9 +612,9 @@ local scenes = {
 				},
 				SelectionArrowComponent = 0,
                 Button = {
-                    out = "panko.png",
-                    clicked = "panko.png",
-                    hover = "panko.png",
+                    out = "selectLeft.png",
+                    clicked = "selectLeft.png",
+                    hover = "selectLeft.png",
 					onClick = function (inv)
 	                    inv:invoke("left");
                     end 
@@ -631,9 +630,9 @@ local scenes = {
 				},
 				SelectionArrowComponent = 0,
                 Button = {
-                    out = "panko.png",
-                    clicked = "panko.png",
-                    hover = "panko.png",
+                    out = "selectRight.png",
+                    clicked = "selectRight.png",
+                    hover = "selectRight.png",
 					onClick = function (inv)
 	                    inv:invoke("right");
                     end 
@@ -644,14 +643,14 @@ local scenes = {
             handler = "selectButton",
 			components = {
 				RectTransform = {
-					position = {Window["width"]/2 - 50, Window["height"]/2 + 150},
-                    scale = {100, 100}
+					position = {Window["width"]/2 - 237.5, Window["height"]/2 + 150},
+                    scale = {475, 150}
 				},
 				SelectionArrowComponent = 0,
                 Button = {
-                    out = "panko.png",
-                    clicked = "panko.png",
-                    hover = "panko.png",
+                    out = "SeleccionarOut.png",
+                    clicked = "SeleccionarClick.png",
+                    hover = "SeleccionarHover.png",
 					onClick = function (inv)
 	                    inv:invoke("select");
                     end 
