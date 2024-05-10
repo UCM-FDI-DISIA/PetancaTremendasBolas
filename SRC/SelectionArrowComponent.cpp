@@ -36,18 +36,18 @@ void SelectionArrowComponent::update() {
 }
 
 void SelectionArrowComponent::callLeft() {
-	std::cout << "lol" << std::endl;
 	if (selectionManager == nullptr)
 	{
+		reportError("No existe selectionManager");
 		return;
 	}
-	std::cout << "xd" << std::endl;
 	selectionManager->moveLeft();
 }
 
 void SelectionArrowComponent::callRight() {
 	if (selectionManager == nullptr)
 	{
+		reportError("No existe selectionManager");
 		return;
 	}
 	selectionManager->moveRight();
@@ -56,6 +56,7 @@ void SelectionArrowComponent::callRight() {
 void SelectionArrowComponent::callSelect() {
 	if (selectionManager == nullptr)
 	{
+		reportError("No existe selectionManager");
 		return;
 	}
 	selectionManager->makeSelection();
