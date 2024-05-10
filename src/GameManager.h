@@ -21,7 +21,6 @@ private:
 	bool init;
 	bool end;
 	bool playing;
-	bool start;
 	bool waitForRefresh;
 	bool endUI;
 

@@ -61,12 +61,12 @@ void UIManager::updateProgressBar(float value, float maxValue) {
 void UIManager::updatePoints(int points, bool p1){
 	std::string aux;
 	if (p1) {
-		aux = "Points p1: ";
+		aux = "Jugador 1: ";
 		aux += std::to_string(points);
 		pointsP1->setText(aux);
 	}
 	else {
-		aux = "Points p2: ";
+		aux = "Jugador 2: ";
 		aux += std::to_string(points);
 		pointsP2->setText(aux);
 	}
@@ -74,11 +74,9 @@ void UIManager::updatePoints(int points, bool p1){
 
 void UIManager::updateTurn(bool p1){
 	if (p1) {
-		tPlayer->setText("PLAYER 1 TURN");
-		tPlayer->setColor({ 0, 0, 1, 1 });
+		tPlayer->setText("JUGADOR 1");
 	}
 	else {
-		tPlayer->setText("PLAYER 2 TURN");
-		tPlayer->setColor({ 1, 0, 0, 1 });
+		tPlayer->setText("JUGADOR 2");
 	}
 }

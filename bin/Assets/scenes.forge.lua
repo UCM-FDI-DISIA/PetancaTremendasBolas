@@ -372,7 +372,7 @@ local prefabs = {
 		handler = "WinnerText",
 		components = {
 			RectTransform = {
-				position = {10 * Window["width"] / 20, 2 * Window["height"] / 12},
+				position = {Window["width"] / 2 - 100, 2 * Window["height"] / 12},
 				scale = {Window["width"] / 20, Window["height"] / 12}
 			},
 			Text = {
@@ -399,8 +399,8 @@ local keepBetweenScenes = {
 }
 
 local scenes = {
--- TEST
-    Test = {
+-- MURCIA
+    Murcia = {
         UIManager = {
             handler = "UIManager",
                 components = {
@@ -431,6 +431,19 @@ local scenes = {
 				}
 			}
 		},
+		TextoEsc = {
+			components = {
+				RectTransform = {
+					position = {Window["width"] / 2 - 150, 10},
+					scale = {1, 1}
+				},
+				Text = {
+                    text = "Murcia",
+                    fontName = "Mainstay.ttf",
+                    fontHeight = 100
+				}
+			}
+		},
         ForceBar = {
             handler = "ForceBar",
             components = {
@@ -450,7 +463,7 @@ local scenes = {
             handler = "PuntosP1",
             components = {
                 RectTransform = {
-                    position = {20, Window["height"] - 120},
+                    position = {40, Window["height"] - 120},
                     scale = {Window["width"] / 20, Window["height"] / 12}
                 },
                 Text = {
@@ -464,7 +477,7 @@ local scenes = {
             handler = "PuntosP2",
             components = {
                 RectTransform = {
-                    position = {20, Window["height"] - 60},
+                    position = {40, Window["height"] - 60},
                     scale = {Window["width"] / 20, Window["height"] / 12}
                 },
                 Text = {
@@ -478,11 +491,11 @@ local scenes = {
             handler = "Turn",
             components = {
                 RectTransform = {
-                    position = {20, 20},
+                    position = {60, 20},
                     scale = {Window["width"] / 20, Window["height"] / 12}
                 },
                 Text = {
-                    text = "No Juan",
+                    text = "Jugador 1",
                     fontName = "Mainstay.ttf",
                     fontHeight = 1
                 }
@@ -810,7 +823,7 @@ local scenes = {
 				},
 				Text = {
                     text = "El Escorial",
-                    fontName = "Willow.ttf",
+                    fontName = "Mainstay.ttf",
                     fontHeight = 100
 				}
 			}
@@ -835,11 +848,11 @@ local scenes = {
 			handler = "cambioTurn",
 			components = {
 				Transform= {
-				position = {0,0,0}
+					position = {0,0,0}
 				},
 				AudioSource={
-				sound="cambioTurn",
-				sound2D=true
+					sound="cambioTurn",
+					sound2D=true
 				}
 			}
 		},
@@ -847,11 +860,11 @@ local scenes = {
 			handler = "sonidoFinal",
 			components = {
 				Transform= {
-				position = {0,0,0}
+					position = {0,0,0}
 				},
 				AudioSource={
-				sound="endgame",
-				sound2D=true
+					sound="endgame",
+					sound2D=true
 				}
 			}
 		},
@@ -874,13 +887,14 @@ local scenes = {
             handler = "PuntosP1",
             components = {
                 RectTransform = {
-                    position = {20, Window["height"] - 120},
+                    position = {40, Window["height"] - 120},
                     scale = {Window["width"] / 20, Window["height"] / 12}
                 },
                 Text = {
                     text = "Jugador 1: ",
                     fontName = "Mainstay.ttf",
-                    fontHeight = 1
+                    fontHeight = 1,
+					color = {0, 0, 0, 1}
                 }
             }
         },
@@ -888,13 +902,14 @@ local scenes = {
             handler = "PuntosP2",
             components = {
                 RectTransform = {
-                    position = {20, Window["height"] - 60},
+                    position = {40, Window["height"] - 60},
                     scale = {Window["width"] / 20, Window["height"] / 12}
                 },
                 Text = {
                     text = "Jugador 2: ",
                     fontName = "Mainstay.ttf",
-                    fontHeight = 1
+                    fontHeight = 1,
+					color = {0, 0, 0, 1}
                 }
             }
         },
@@ -902,11 +917,11 @@ local scenes = {
             handler = "Turn",
             components = {
                 RectTransform = {
-                    position = {20, 20},
+                    position = {60, 20},
                     scale = {Window["width"] / 20, Window["height"] / 12}
                 },
                 Text = {
-                    text = "No Juan",
+                    text = "Jugador 1",
                     fontName = "Mainstay.ttf",
                     fontHeight = 1
                 }
@@ -1285,34 +1300,47 @@ local scenes = {
 			handler = "sonidoFinal",
 			components = {
 				Transform= {
-				position = {0,0,0}
+					position = {0,0,0}
 				},
 				AudioSource={
-				sound="endgame",
-				sound2D=true
+					sound="endgame",
+					sound2D=true
 				}
 			}
 		},
-		ForceBar = {
-			handler = "ForceBar",
+		TextoEsc = {
 			components = {
 				RectTransform = {
-					position = {Window["width"] -  2 * Window["width"] / 20, 100},
-					scale = {Window["width"] / 20, 3 * Window["height"] / 4}
+					position = {Window["width"] / 2 - 150, 10},
+					scale = {1, 1}
 				},
-				ProgressBar = {
-					front = "progressbar.png",
-					back = "progressbarBg.png",
-					growth = "DOWN_TO_UP",
-					depth = 3
+				Text = {
+                    text = "Valencia",
+                    fontName = "Mainstay.ttf",
+                    fontHeight = 100
 				}
 			}
 		},
+        ForceBar = {
+            handler = "ForceBar",
+            components = {
+                RectTransform = {
+                    position = {Window["width"] - 2 * Window["width"] / 20, 100},
+                    scale = {Window["width"] / 20, 2 * Window["height"] / 3}
+                },
+                ProgressBar = {
+                    front = "progressbar.png",
+					back = "progressbarBg.png",
+                    growth = "DOWN_TO_UP",
+                    depth = 3
+                }
+            }
+        },
         PuntosP1 = {
             handler = "PuntosP1",
             components = {
                 RectTransform = {
-                    position = {20, Window["height"] - 120},
+                    position = {40, Window["height"] - 120},
                     scale = {Window["width"] / 20, Window["height"] / 12}
                 },
                 Text = {
@@ -1326,7 +1354,7 @@ local scenes = {
             handler = "PuntosP2",
             components = {
                 RectTransform = {
-                    position = {20, Window["height"] - 60},
+                    position = {40, Window["height"] - 60},
                     scale = {Window["width"] / 20, Window["height"] / 12}
                 },
                 Text = {
@@ -1340,11 +1368,11 @@ local scenes = {
             handler = "Turn",
             components = {
                 RectTransform = {
-                    position = {20, 20},
+                    position = {60, 20},
                     scale = {Window["width"] / 20, Window["height"] / 12}
                 },
                 Text = {
-                    text = "No Juan",
+                    text = "Jugador 1",
                     fontName = "Mainstay.ttf",
                     fontHeight = 1
                 }

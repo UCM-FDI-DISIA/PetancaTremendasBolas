@@ -15,14 +15,31 @@
 //#include <Serializer.h>
 const std::string GameManager::id = "GameManager";
 
-GameManager::GameManager(): firstTurn(false),init(false), isP1(false), turnStarted(false),
-cinematicCamera(false), end(false), myBallCounterP1(0),myBallCounterP2(0),maxBalls(3),points1(0),points2(0), pointRadius(1000), speed(0),
-winnerTime(5), initialCamPos(0, 0, 0), playing(false), waitForRefresh(false), endUI(false) {
-	boliche = nullptr;
-	cam = nullptr;
-	currentBall = nullptr;
-	manager = nullptr;
-	maxForce = 0;
+GameManager::GameManager() :
+	firstTurn(false), 
+	init(false),
+	isP1(false),
+	turnStarted(false),
+	cinematicCamera(false),
+	end(false),
+	myBallCounterP1(0),
+	myBallCounterP2(0),
+	maxBalls(3),
+	points1(0),
+	points2(0),
+	pointRadius(1000),
+	speed(0),
+	winnerTime(5),
+	initialCamPos(0, 0, 0),
+	playing(false),
+	waitForRefresh(false),
+	endUI(false),
+	boliche(nullptr),
+	cam(nullptr),
+	currentBall(nullptr),
+	manager(nullptr),
+	maxForce(0) {
+
 }
 
 GameManager::~GameManager() {
@@ -47,7 +64,7 @@ void GameManager::initVariables() {
 		cam = sceneManager.getActiveScene()->getEntityByHandler("cam")->getComponent<Transform>();
 		initialCamPos = cam->getPosition();
 		manager = sceneManager.getActiveScene()->getEntityByHandler("UIManager")->getComponent<UIManager>();
-		sceneManager.getActiveScene()->getEntityByHandler("Turn")->getComponent<Text>()->setText("No Juan");
+		sceneManager.getActiveScene()->getEntityByHandler("Turn")->getComponent<Text>()->setText("Jugador1");
 		firstTurn = true;
 	}
 }
@@ -245,7 +262,7 @@ void GameManager::setMap(std::string map)
 	}
 	if (map == "murcia.png")
 	{
-		mapSelected = "Test";
+		mapSelected = "Murcia";
 	}
 	changeScene(mapSelected);
 }
