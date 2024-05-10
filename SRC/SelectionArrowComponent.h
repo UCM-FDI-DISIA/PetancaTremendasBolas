@@ -20,8 +20,16 @@ public:
 	/// Actualiza la logica del componente, llamandose en cada iteracion del bucle principal
 	/// </summary>
 	void update() override;
-
+	/// <summary>
+	/// Llama a cambiar el objeto hacia la izquierda
+	/// </summary>
 	void callLeft();
+	/// <summary>
+	/// Llama a cambiar el objeto hacia la derecha
+	/// </summary>
 	void callRight();
+	/// <summary>
+	/// Llama a seleccionar el objeto
+	/// </summary>
 	void callSelect();
 };

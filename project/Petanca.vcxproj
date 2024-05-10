@@ -108,7 +108,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="..\SRC\ShootComponent.cpp" />
-    <ClCompile Include="..\SRC\TestComponent.cpp" />
     <ClCompile Include="..\SRC\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -126,7 +125,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="..\SRC\ShootComponent.h" />
-    <ClInclude Include="..\SRC\TestComponent.h" />
     <ClInclude Include="..\SRC\UIManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

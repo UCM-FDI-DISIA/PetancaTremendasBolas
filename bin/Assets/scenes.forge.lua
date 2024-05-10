@@ -161,17 +161,16 @@ local prefabs = {
 			}
 		},
 		children = {
-			
 			Cube= {
 				components = {
 					Transform= {
-						position = {33,0.3,23.9},
+						position = {33,0,23.9},
 						rotation = {0,0,0,1},
 						scale = {70,0.2,100}
 					},
 					RigidBody= {
 						static = true,
-						friction = 0.1						
+						friction = 0.3						
 					},
 					Mesh = {
 						mesh = "cube.mesh"
@@ -373,12 +372,12 @@ local prefabs = {
 		handler = "WinnerText",
 		components = {
 			RectTransform = {
-				position = {10*Window["width"]/20, 2*Window["height"]/12},
-				scale = {Window["width"]/20, Window["height"]/12}
+				position = {10 * Window["width"] / 20, 2 * Window["height"] / 12},
+				scale = {Window["width"] / 20, Window["height"] / 12}
 			},
 			Text = {
 				text = "Ganador",
-				fontName = "Willow.ttf",
+				fontName = "Mainstay.ttf",
 				fontHeight = 1
 			}
 		}
@@ -546,7 +545,7 @@ local scenes = {
 				mesh ="cube.mesh",
 			}
 		}
-},
+	},
         player = {
            	handler = "Player",
             components = {
@@ -856,19 +855,60 @@ local scenes = {
 				}
 			}
 		},
-        player = {
-           	handler = "Player",
+        ForceBar = {
+            handler = "ForceBar",
             components = {
-                Transform = {
-                    position = {0, -10, 0},
-                    scale = {200,10,200}
+                RectTransform = {
+                    position = {Window["width"] - 2 * Window["width"] / 20, 100},
+                    scale = {Window["width"] / 20, 2 * Window["height"] / 3}
                 },
-                RigidBody= {
-                    friction=1,
-                    static = true
+                ProgressBar = {
+                    front = "progressbar.png",
+					back = "progressbarBg.png",
+                    growth = "DOWN_TO_UP",
+                    depth = 3
+                }
+            }
+        },
+        PuntosP1 = {
+            handler = "PuntosP1",
+            components = {
+                RectTransform = {
+                    position = {20, Window["height"] - 120},
+                    scale = {Window["width"] / 20, Window["height"] / 12}
                 },
-                Mesh={
-                    mesh ="sphere.mesh",
+                Text = {
+                    text = "Jugador 1: ",
+                    fontName = "Mainstay.ttf",
+                    fontHeight = 1
+                }
+            }
+        },
+        PuntosP2 = {
+            handler = "PuntosP2",
+            components = {
+                RectTransform = {
+                    position = {20, Window["height"] - 60},
+                    scale = {Window["width"] / 20, Window["height"] / 12}
+                },
+                Text = {
+                    text = "Jugador 2: ",
+                    fontName = "Mainstay.ttf",
+                    fontHeight = 1
+                }
+            }
+        },
+        TurnText = {
+            handler = "Turn",
+            components = {
+                RectTransform = {
+                    position = {20, 20},
+                    scale = {Window["width"] / 20, Window["height"] / 12}
+                },
+                Text = {
+                    text = "No Juan",
+                    fontName = "Mainstay.ttf",
+                    fontHeight = 1
                 }
             }
         },
@@ -876,14 +916,17 @@ local scenes = {
             handler = "cam",
             components = {
                 Transform = {
-                    position = {35, 15, 100}
+                    position = {0, 80, 100}
                 },
                 Camera = {
                     nearClipDistance = 1,
                     autoAspectRatio = true,
                     backgroundColor = {0.4, 0.6, 0.9}
                 },
-                AudioListener = 0
+                AudioListener = 0,
+				AudioSource = {
+					sound = "lanza"
+				}
             }
         },
     	luz = {
@@ -896,13 +939,21 @@ local scenes = {
             	}
         	}
 		},
-		Floor1= {
+		padre = {
+			components = {
+				Transform = {
+					position = {-65, 0, -160},
+					scale = {2, 2, 2}
+				} 
+			},
+			children = {
+				Floor1= {
 			blueprint = "Floor",
 			components = {
 				Transform= {
 					position = {0,0,0},
 					rotation = {0,0,0,1},
-					scale = {1,1,1}
+					scale = {1,2,2}
 				}
 			}
 		},
@@ -972,7 +1023,7 @@ local scenes = {
 			}
 		}
 	}
-},
+	},
 
 		ColumnasReales= {
 			components = {
@@ -1207,8 +1258,10 @@ local scenes = {
 				}
 			}
 		}
+			}
+		}
 	},
---VALENCIA
+-- VALENCIA
 	Valencia = {
 		uiManager = {
 		handler = "UIManager",
@@ -1309,7 +1362,10 @@ local scenes = {
                     autoAspectRatio = true,
                     backgroundColor = {0.6, 0.3, 0.3}
                 },
-                AudioListener = 0
+                AudioListener = 0,
+				AudioSource = {
+					sound = "lanza"
+				}
             }
         },
 		padre = {

@@ -83,8 +83,12 @@ public:
 	/// Desplaza el selector actual
 	/// </summary>
 	void moveRight();
-
+	/// <summary>
+	/// Actua en funcion de la seleccion
+	/// </summary>
 	void makeSelection();
-
+	/// <summary>
+	/// Confirma la seleccion de mapa y bolas
+	/// </summary>
 	void confirmSelection();
 };

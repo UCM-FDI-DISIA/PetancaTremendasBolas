@@ -163,12 +163,7 @@ void SelectionManager::makeSelection()
 	{
 		mapSelection = currentMapSelection;
 		currentStep = selectionConfirmation;
-		std::cout << "se confirma mapa\n";
 		confirmSelection();
-	}
-	else if (currentStep == selectionConfirmation)
-	{
-		std::cout << "se confirma sele\n";
 	}
 }
 
@@ -183,6 +178,6 @@ void SelectionManager::confirmSelection()
 	}
 	else
 	{
-		std::cout << "No se ha encontrado el GameManager\n";
+		reportError("No se ha encontrado el GameManager");
 	}
 }
