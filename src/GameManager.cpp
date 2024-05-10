@@ -229,7 +229,7 @@ void GameManager::createBall(bool player1)
 }
 
 void GameManager::changeScene(std::string const& scene) {
-	sceneManager.changeScene(scene);
+	sceneManager.changeScene(scene,true);
 	if(scene != "TitleScreen" && scene!= "SkinSelection")setPlaying(true);
 }
 
