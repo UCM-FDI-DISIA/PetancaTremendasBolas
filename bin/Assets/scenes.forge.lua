@@ -1,4 +1,4 @@
-local prefabs = {
+prefabs = {
     ball = {
             components = {
                 Transform = {
@@ -384,7 +384,7 @@ local prefabs = {
 	}
 }
 
-local keepBetweenScenes = {
+keepBetweenScenes = {
 	GameManager = {
         handler = "GameManager",
             components = {
@@ -398,7 +398,7 @@ local keepBetweenScenes = {
    		 }
 }
 
-local scenes = {
+scenes = {
 -- MURCIA
     Murcia = {
         UIManager = {
@@ -1866,5 +1866,3 @@ local scenes = {
 		}
     }
 }
-
-return prefabs, keepBetweenScenes, scenes

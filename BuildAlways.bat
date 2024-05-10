@@ -15,5 +15,5 @@ xcopy /y "%ENGINEBIN%\FORGE.exe" "%WORKDIR%"
 xcopy /y "%ENGINEBIN%\FORGE_d.exe" "%WORKDIR%"
 xcopy /y "%ENGINEBIN%\gamecontrollerdb.txt" "%WORKDIR%"
 
-msbuild UxiaANecoraDeMontealto.sln /p:Configuration=Debug /p:Platform=x64
-msbuild UxiaANecoraDeMontealto.sln /p:Configuration=Release /p:Platform=x64
+msbuild Petanca.sln /p:Configuration=Debug /p:Platform=x64
+msbuild Petanca.sln /p:Configuration=Release /p:Platform=x64
