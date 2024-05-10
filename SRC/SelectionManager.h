@@ -6,7 +6,7 @@ private:
 	enum selectionSteps {
 		player1Selecting,
 		player2Selecting,
-		mapSelection,
+		mapSelecting,
 		selectionConfirmation
 	};
 	/// <summary>
@@ -38,9 +38,13 @@ private:
 	/// Seleccion de skin del jugador 2
 	/// </summary>
 	int player2Selection;
+	/// <summary>
+	/// Seleccion del mapa
+	/// </summary>
+	int mapSelection;
+
 	bool confirmation;
 
-	std::string text;
 	std::vector<std::string> materials;
 	std::vector<std::string> maps;
 
@@ -80,7 +84,7 @@ public:
 	/// </summary>
 	void moveRight();
 
-	void selectSkin();
+	void makeSelection();
 
 	void confirmSelection();
 };

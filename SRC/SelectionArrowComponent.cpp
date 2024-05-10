@@ -58,5 +58,5 @@ void SelectionArrowComponent::callSelect() {
 	{
 		return;
 	}
-	selectionManager->selectSkin();
+	selectionManager->makeSelection();
 }

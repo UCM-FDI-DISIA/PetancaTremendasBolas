@@ -1,6 +1,5 @@
 local prefabs = {
     ball = {
-        handler = "ball",
             components = {
                 Transform = {
                     position = {0, 50, 0},
@@ -20,9 +19,8 @@ local prefabs = {
                     maxForce=500
                 },
                 Mesh={
-                    mesh ="Bola.mesh",
-                    material= "MatPePa"
-                 }
+                    mesh ="Bola.mesh"
+            }
         }
     },
     
@@ -48,7 +46,7 @@ local prefabs = {
             },
 			Mesh={
 				mesh ="Bola.mesh",
-				material= "MatPePa"
+				material= "MatBoliche"
 			 }
         }
     },
@@ -57,6 +55,9 @@ local prefabs = {
 			Transform = {
 				position = {0,-0.9,-11.4},
 				scale = {1,1,1}
+			},
+			Collider = {
+
 			},
 			Mesh = {
 				mesh = "paellera.mesh"			
@@ -80,7 +81,10 @@ local prefabs = {
 						scale = {2,0.3,1}
 					},
 					Collider = {					
-					}
+					},
+					Mesh = {
+						mesh = "cube.mesh"
+					}	
 				}
 			},
 			Cube_1 = {
@@ -91,7 +95,10 @@ local prefabs = {
 						scale = {2,0.3,2}
 					},
 					Collider= {					
-					}
+					},
+					Mesh = {
+						mesh = "cube.mesh"
+					}	
 				}
 			},
 			Cube_2 = {
@@ -102,7 +109,10 @@ local prefabs = {
 						scale = {2,0.3,3}
 					},
 					Collider = {				
-					}
+					},
+					Mesh = {
+						mesh = "cube.mesh"
+					}	
 				}
 			},
 			Cube_3 = {
@@ -113,7 +123,10 @@ local prefabs = {
 						scale = {2,0.3,4}
 					},
 					Collider = {					
-					}
+					},
+					Mesh = {
+						mesh = "cube.mesh"
+					}	
 				}
 			},
 			Cube_4 = {
@@ -124,7 +137,10 @@ local prefabs = {
 						scale = {2,0.3,5}
 					},
 					Collider = {					
-					}
+					},
+					Mesh = {
+						mesh = "cube.mesh"
+					}	
 				}
 			}
 		}
@@ -345,23 +361,35 @@ local prefabs = {
 				mesh = "Fountain.mesh"
 			}
 		}
+	},
+	WinnerText = {
+		handler = "WinnerText",
+		components = {
+			RectTransform = {
+				position = {10*Window["width"]/20, 2*Window["height"]/12},
+				scale = {Window["width"]/20, Window["height"]/12}
+			},
+			Text = {
+				text = "Ganador",
+				fontName = "Willow.ttf",
+				fontHeight = 1
+			}
+		}
 	}
-
 }
 
 local keepBetweenScenes = {
-
+	GameManager = {
+		handler = "GameManager",
+			components = {
+				GameManager = 0,
+			}
+	},
 }
 
 local scenes = {
 -- TEST
     Test = {
-        GameManager = {
-            handler = "GameManager",
-                components = {
-                    GameManager = 0,
-                }
-        },
         UIManager = {
             handler = "UIManager",
                 components = {
@@ -372,12 +400,12 @@ local scenes = {
             handler = "ForceBar",
             components = {
                 RectTransform = {
-                    position = { Window["width"] / 20 , Window["height"] / 12},
-                    scale = {Window["width"] / 20, 2*Window["height"]/3}
+                    position = {Window["width"] - 2 * Window["width"] / 20, 100},
+                    scale = {Window["width"] / 20, 2 * Window["height"] / 3}
                 },
                 ProgressBar = {
-                    front = "angry.png",
-                    back = "angryBg.png",
+                    front = "progressbar.png",
+					back = "progressbarBg.png",
                     growth = "DOWN_TO_UP",
                     depth = 3
                 }
@@ -387,12 +415,12 @@ local scenes = {
             handler = "PuntosP1",
             components = {
                 RectTransform = {
-                    position = {Window["width"]/20, 10*Window["height"]/12},
-                    scale = {Window["width"]/20, Window["height"]/12}
+                    position = {20, Window["height"] - 120},
+                    scale = {Window["width"] / 20, Window["height"] / 12}
                 },
                 Text = {
                     text = "Jugador 1: ",
-                    fontName = "Willow.ttf",
+                    fontName = "Mainstay.ttf",
                     fontHeight = 1
                 }
             }
@@ -401,12 +429,12 @@ local scenes = {
             handler = "PuntosP2",
             components = {
                 RectTransform = {
-                    position = {16*Window["width"]/20, 10*Window["height"]/12},
-                    scale = {Window["width"]/20, Window["height"]/12}
+                    position = {20, Window["height"] - 60},
+                    scale = {Window["width"] / 20, Window["height"] / 12}
                 },
                 Text = {
                     text = "Jugador 2: ",
-                    fontName = "Willow.ttf",
+                    fontName = "Mainstay.ttf",
                     fontHeight = 1
                 }
             }
@@ -415,12 +443,12 @@ local scenes = {
             handler = "Turn",
             components = {
                 RectTransform = {
-                    position = {10*Window["width"]/20, 2*Window["height"]/12},
-                    scale = {Window["width"]/20, Window["height"]/12}
+                    position = {20, 20},
+                    scale = {Window["width"] / 20, Window["height"] / 12}
                 },
                 Text = {
                     text = "No Juan",
-                    fontName = "Willow.ttf",
+                    fontName = "Mainstay.ttf",
                     fontHeight = 1
                 }
             }
@@ -430,7 +458,7 @@ local scenes = {
                 components = {
                     Transform = {
                         position = {0, -10, 100},
-                        scale = {20000,10,20000}
+                        scale = {1000,10,1000}
                     },
                     RigidBody= {
                         friction=1,
@@ -441,6 +469,48 @@ local scenes = {
                     }
                 }
         },
+		pared1 = {
+                components = {
+                    Transform = {
+						position = {500, 0, 100},
+                        scale = {30,50,1000}
+                    },
+                    Collider= {
+
+					},
+                    Mesh={
+                        mesh ="cube.mesh",
+                    }
+                }
+        },
+		pared2 = {
+			components = {
+				Transform = {
+					position = {-500, 0, 100},
+					scale = {30,50,1000}
+				},
+				Collider= {
+
+				},
+				Mesh={
+					mesh ="cube.mesh",
+				}
+			}
+	},
+	pared3 = {
+		components = {
+			Transform = {
+				position = {0, 0, -300},
+				scale = {1000,50,50}
+			},
+			Collider= {
+
+			},
+			Mesh={
+				mesh ="cube.mesh",
+			}
+		}
+},
         player = {
            	handler = "Player",
             components = {
@@ -453,7 +523,7 @@ local scenes = {
             handler = "cam",
             components = {
                 Transform = {
-                    position = {0, 50, 150}
+                    position = {0, 50, 250}
                 },
                 Camera = {
                     nearClipDistance = 1,
@@ -495,7 +565,7 @@ local scenes = {
 			handler = "PreviewMap",
 			components = {
 				RectTransform = {
-					position = {Window["width"]/2 - 120, Window["height"] - 100},
+					position = {Window["width"]/2 - 120, Window["height"]/2 - 100},
 					scale = {240, 200}
 				},
 				Image = {
@@ -544,14 +614,14 @@ local scenes = {
             handler = "Arrow",
 			components = {
 				RectTransform = {
-					position = {Window["width"]/2 - 200 - 50, Window["height"]/2},
+					position = {Window["width"] / 2 - 200 - 50, Window["height"] / 2},
                     scale = {100, 100}
 				},
 				SelectionArrowComponent = 0,
                 Button = {
-                    out = "panko.png",
-                    clicked = "panko.png",
-                    hover = "panko.png",
+                    out = "selectLeft.png",
+                    clicked = "selectLeft.png",
+                    hover = "selectLeft.png",
 					onClick = function (inv)
 	                    inv:invoke("left");
                     end 
@@ -562,39 +632,36 @@ local scenes = {
             handler = "rArrow",
 			components = {
 				RectTransform = {
-					position = {Window["width"]/2 + 200 - 50, Window["height"]/2},
+					position = {Window["width"] / 2 + 200 - 50, Window["height"] / 2},
                     scale = {100, 100}
 				},
 				SelectionArrowComponent = 0,
                 Button = {
-                    out = "panko.png",
-                    clicked = "panko.png",
-                    hover = "panko.png",
+                    out = "selectRight.png",
+                    clicked = "selectRight.png",
+                    hover = "selectRight.png",
 					onClick = function (inv)
 	                    inv:invoke("right");
                     end 
 				},
-				
-
 			}
 		},
         selectButton = {
             handler = "selectButton",
 			components = {
 				RectTransform = {
-					position = {Window["width"]/2 - 50, Window["height"] + 150},
-                    scale = {100, 100}
+					position = {Window["width"]/2 - 237.5, Window["height"]/2 + 150},
+                    scale = {475, 150}
 				},
 				SelectionArrowComponent = 0,
                 Button = {
-                    out = "panko.png",
-                    clicked = "panko.png",
-                    hover = "panko.png",
+                    out = "SeleccionarOut.png",
+                    clicked = "SeleccionarClick.png",
+                    hover = "SeleccionarHover.png",
 					onClick = function (inv)
 	                    inv:invoke("select");
                     end 
 				}
-
 			}
 		}
 	},
@@ -634,7 +701,7 @@ local scenes = {
         playButton = { 
             components = {
                 RectTransform = {
-                    position = {2*Window["width"] / 3, 3* Window["height"] / 4},
+                    position = {Window["width"] / 2 - 237.5, Window["height"] / 2},
                     scale = {475, 150}
                 },
                 Button = {
@@ -671,12 +738,6 @@ local scenes = {
     },
 -- ESCORIAL
 	Escorial = {
-		GameManager = {
-            handler = "GameManager",
-                components = {
-                    GameManager = 0
-                }
-        },
 		uiManager = {
 			handler = "UIManager",
 			components = {
@@ -716,7 +777,15 @@ local scenes = {
            	handler = "Player",
             components = {
                 Transform = {
-                    position = {0, 50, 0}
+                    position = {0, -10, 0},
+                    scale = {200,10,200}
+                },
+                RigidBody= {
+                    friction=1,
+                    static = true
+                },
+                Mesh={
+                    mesh ="sphere.mesh",
                 }
             }
         },
@@ -733,16 +802,16 @@ local scenes = {
                 },
                 AudioListener = 0
             }
-        },
-        luz = {
-            components = {
-                Transform = {
-                    position = {20, 80, 0}
-                },
-                Light = {
-                    type = 0 
-                }
-            }
+        }
+    	luz = {
+        	components = {
+            	Transform = {
+                	position = {20, 80, 0}
+            	},
+            	Light = {
+                	type = 0 
+            	}
+        	}
 		},
 		Floor1= {
 			blueprint = "Floor",
@@ -1056,12 +1125,83 @@ local scenes = {
 			}
 		}
 	},
+--VALENCIA
 	Valencia = {
+		GameManager = {
+		handler = "GameManager",
+			components = {
+				GameManager = 0
+			}
+		},
+		uiManager = {
+		handler = "UIManager",
+			components = {
+				UIManager = 0
+			}
+		},
+		ForceBar = {
+			handler = "ForceBar",
+			components = {
+				RectTransform = {
+					position = {Window["width"] -  2 * Window["width"] / 20, 100},
+					scale = {Window["width"] / 20, 3 * Window["height"] / 4}
+				},
+				ProgressBar = {
+					front = "progressbar.png",
+					back = "progressbarBg.png",
+					growth = "DOWN_TO_UP",
+					depth = 3
+				}
+			}
+		},
+        PuntosP1 = {
+            handler = "PuntosP1",
+            components = {
+                RectTransform = {
+                    position = {20, Window["height"] - 120},
+                    scale = {Window["width"] / 20, Window["height"] / 12}
+                },
+                Text = {
+                    text = "Jugador 1: ",
+                    fontName = "Mainstay.ttf",
+                    fontHeight = 1
+                }
+            }
+        },
+        PuntosP2 = {
+            handler = "PuntosP2",
+            components = {
+                RectTransform = {
+                    position = {20, Window["height"] - 60},
+                    scale = {Window["width"] / 20, Window["height"] / 12}
+                },
+                Text = {
+                    text = "Jugador 2: ",
+                    fontName = "Mainstay.ttf",
+                    fontHeight = 1
+                }
+            }
+        },
+        TurnText = {
+            handler = "Turn",
+            components = {
+                RectTransform = {
+                    position = {20, 20},
+                    scale = {Window["width"] / 20, Window["height"] / 12}
+                },
+                Text = {
+                    text = "No Juan",
+                    fontName = "Mainstay.ttf",
+                    fontHeight = 1
+                }
+            }
+        },
         cam = {
+			handler = "cam",
             components = {
                 Transform = {
-                    position = {0, 0, 0},
-                    rotation = {0, 0, 0, 1}
+                    position = {0, 40, 80},
+                    rotation = {-0.2, 0, 0, 1}
                 },
                 Camera = {
                     nearClipDistance = 1,
@@ -1071,7 +1211,15 @@ local scenes = {
                 AudioListener = 0
             }
         },
-        Plataformainicial = {
+		padre = {
+			components = {
+				Transform = {
+					position = {0, 0, 0},
+					scale = {15, 15, 15}
+				}
+			},
+            children = {
+                Plataformainicial = {
             components = {
                 Transform = {
                     position = {0,-0.6,0},
@@ -1080,9 +1228,9 @@ local scenes = {
                 Collider = {
                     scale = {1,1,1}		
                 },
-                --Mesh = {
-                --    mesh = "cube.mesh"
-                --}
+                Mesh = {
+                    mesh = "cube.mesh"
+                }
             }
         },
 		Map1 = {
@@ -1093,7 +1241,10 @@ local scenes = {
 				},
 				Collider = {
 
-				}
+				},
+				Mesh = {
+                    mesh = "cube.mesh"
+                }
 			}
 		},
 		Map2 = {
@@ -1102,68 +1253,102 @@ local scenes = {
 					position = {0,-1.5,-7.5},
 					scale = {9,0.3,11}
 				},
-				Collider = {				
-				}
+				Collider = {
+
+				},
+				Mesh = {
+                    mesh = "cube.mesh"
+                }
 			}
 		},
 		Map3 = {
 			components = {
 				Transform= {
 					position = {5.9,-1.5,-10.3},
+					rotation = {0,0.6427876,0,0.7660445},
 					scale = {17,0.3,1}
 				},
-				Collider = {					
-				}
+				Collider = {
+
+				},
+				Mesh = {
+                    mesh = "cube.mesh"
+                }
 			}
 		},
 		Map4 = {
 			components = {
 				Transform= {
 					position = {-5.9,-1.5,-10.3},
+					rotation = {0,-0.6427876,0,0.7660445},
 					scale = {17,0.3,1}
 				},
-				Collider = { 					
-				}
+				Collider = {
+
+				},
+				Mesh = {
+                    mesh = "cube.mesh"
+                }
 			}
 		},
 		Map5 = {
 			components = {
 				Transform= {
 					position = {-4.7,-1.5,-9.7},
+					rotation = {0,0.08715578,0,0.9961947},
 					scale = {1.25,0.3,9}
 				},
-				Collider = {				
-				}
+				Collider = {
+
+				},
+				Mesh = {
+                    mesh = "cube.mesh"
+                }
 			}
 		},
 		Map6 = {
 			components = {
 				Transform= {
 					position = {4.7,-1.5,-9.7},
+					rotation = {0,-0.08715578,0,0.9961947},
 					scale = {1.25,0.3,9}
 				},
-				Collider = {			
-				}
+				Collider = {
+
+				},
+				Mesh = {
+                    mesh = "cube.mesh"
+                }
 			}
 		},
 		Map7 = {
 			components = {
 				Transform= {
 					position = {-4.46,-0.6,-1.91},
+					rotation = {0,-0.6427876,0,0.7660445},
 					scale = {0.02,1.5,0.95}
 				},
-				Collider = {			
-				}
+				Collider = {
+
+				},
+				Mesh = {
+                    mesh = "cube.mesh"
+                }
 			}
 		},
 		Map8 = {
 			components = {
 				Transform= {
 					position = {4.46,-0.6,-1.91},
+					rotation = {0,0.6427876,0,0.7660445},
 					scale = {0.02,1.5,0.95}
 				},
-				Collider = {			
-				}
+				Collider = {
+
+				},
+				Mesh = {
+                    mesh = "cube.mesh"
+                }
 			}
 		},
         Cylinder = {
@@ -1175,7 +1360,10 @@ local scenes = {
 				},
 				Collider = {
 					shapeType = "Cylinder"					
-				}
+				},
+				Mesh = {
+                    mesh = "Cylinder.mesh"
+                }
 			}
 		},
         Paellera1 = {
@@ -1333,6 +1521,152 @@ local scenes = {
 					}
 				}
 			}
+		},
+		Cube_8= {
+			components = {
+				Transform= {
+					position = {0,1.65,2.06},
+					rotation = {0,0,0,1},
+					scale = {8,3,0.1}
+				},
+				Collider = {
+
+				}
+			}
+		},
+
+		Cube_9= {
+			components = {
+				Transform= {
+					position = {4,1.65,0},
+					rotation = {0,-0.7071068,0,0.7071068},
+					scale = {4,3,0.1}
+				},
+				Collider = {
+
+				}
+			}
+		},
+
+		Cube_10= {
+			components = {
+				Transform= {
+					position = {-4,1.65,0},
+					rotation = {0,-0.7071068,0,0.7071068},
+					scale = {4,3,0.1}
+				},
+				Collider = {
+
+				}
+			}
+		},
+
+		Cube_11= {
+			components = {
+				Transform= {
+					position = {-6.41,0.25,-10.24},
+					rotation = {0,-0.6427876,0,0.7660445},
+					scale = {17,3,0.1}
+				},
+				Collider = {
+
+				}
+			}
+		},
+
+		Cube_12= {
+			components = {
+				Transform= {
+					position = {6.41,0.25,-10.24},
+					rotation = {0,0.6427876,0,0.7660445},
+					scale = {17,3,0.1}
+				},
+				Collider = {
+
+				}
+			}
+		},
+
+		Cube_13= {
+			components = {
+				Transform= {
+					position = {6.82,0.25,-21.45},
+					rotation = {0,0.8213604,0,0.5704096},
+					scale = {6,3,0.1}
+				},
+				Collider = {
+
+				}
+			}
+		},
+
+		Cube_14= {
+			components = {
+				Transform= {
+					position = {-6.82,0.25,-21.45},
+					rotation = {0,-0.8213583,0,0.5704126},
+					scale = {6,3,0.1}
+				},
+				Collider = {
+
+				}
+			}
+		},
+
+		Cube_15= {
+			components = {
+				Transform= {
+					position = {0.05,0.25,-26.17},
+					rotation = {0,-1,0,0},
+					scale = {3,3,0.1}
+				},
+				Collider = {
+
+				}
+			}
+		},
+
+		Cube_16= {
+			components = {
+				Transform= {
+					position = {3.52,0.25,-25.08},
+					rotation = {0,0.9659258,0,0.2588191},
+					scale = {6,3,0.1}
+				},
+				Collider = {
+
+				}
+			}
+		},
+
+		Cube_17= {
+			components = {
+				Transform= {
+					position = {-3.45,0.25,-25.03},
+					rotation = {0,-0.9659258,0,0.2588191},
+					scale = {6,3,0.1}
+				},
+				Collider = {
+
+				}
+			}
+		},
+		fountainRoundDetail= {
+			components = {
+				Transform = {
+					position = {0,-1.35,-9},
+					rotation = {0,0,0,1},
+					scale = {2,2,2}
+				},
+				Collider = {
+					shapeType = cylinder					
+				},
+				Mesh = {
+					mesh = "fountainRoundDetail.mesh"				
+				}
+			}
+		}
+            }
 		}
     }
 }

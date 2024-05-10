@@ -22,6 +22,8 @@ private:
 	bool end;
 	bool playing;
 	bool start;
+	bool waitForRefresh;
+	bool endUI;
 
 	//Contadores
 	int myBallCounterP1;
@@ -52,6 +54,7 @@ private:
 	bool isSelectionScene;
 	std::string player1Skin;
 	std::string player2Skin;
+	std::string mapSelected;
 public:
 	static const std::string id;
 
@@ -80,7 +83,9 @@ public:
 	/// <param name="player1">Para saber si se crea la bola para P1 o P2</param>
 	void createBall(bool player1);
 	void setSkins(std::string skinP1, std::string skinP2);
+	void setMap(std::string map);
 	void changeScene(std::string const& scene);
 	void endGamePhase();
+	void setPlaying(bool playing);
 };
 #endif // !GAME_MANAGER_H_

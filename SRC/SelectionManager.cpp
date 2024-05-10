@@ -18,6 +18,7 @@ SelectionManager::SelectionManager() :
 	currentStep(player1Selecting),
 	player1Selection(0),
 	player2Selection(0),
+	mapSelection(0),
 	currentSkinSelection(0),
 	currentMapSelection(0),
 	confirmation(false){
@@ -53,7 +54,7 @@ void SelectionManager::update() {
 	}
 	if (Input::GetInstance()->keyDown(K_SPACE))
 	{
-		selectSkin();
+		makeSelection();
 	}
 }
 
@@ -78,7 +79,7 @@ void SelectionManager::swapMap()
 
 void SelectionManager::moveLeft()
 {
-	if (currentStep != mapSelection)
+	if (currentStep != mapSelecting)
 	{
 		currentSkinSelection--;
 		//Si llega al principio de la lista, se mueve al final
@@ -112,7 +113,7 @@ void SelectionManager::moveLeft()
 
 void SelectionManager::moveRight()
 {
-	if (currentStep != mapSelection)
+	if (currentStep != mapSelecting)
 	{
 		currentSkinSelection++;
 		//Si llega al final de la lista, se mueve al principio
@@ -144,7 +145,7 @@ void SelectionManager::moveRight()
 	}
 }
 
-void SelectionManager::selectSkin()
+void SelectionManager::makeSelection()
 {
 	if (currentStep == player1Selecting)
 	{
@@ -155,16 +156,33 @@ void SelectionManager::selectSkin()
 	else if (currentStep == player2Selecting)
 	{
 		player2Selection = currentSkinSelection;
-		currentStep = mapSelection;
+		currentStep = mapSelecting;
 		swapToMapSelection();
+	}
+	else if (currentStep == mapSelecting)
+	{
+		mapSelection = currentMapSelection;
+		currentStep = selectionConfirmation;
+		std::cout << "se confirma mapa\n";
+		confirmSelection();
 	}
 	else if (currentStep == selectionConfirmation)
 	{
-		confirmSelection();
+		std::cout << "se confirma sele\n";
 	}
 }
 
 void SelectionManager::confirmSelection()
 {
-	scene->getEntityByHandler("GameManager")->getComponent<GameManager>()->setSkins(materials[player1Selection], materials[player2Selection]);
+	auto gmE = scene->getEntityByHandler("GameManager");
+	auto gM = gmE->getComponent<GameManager>();
+	if (gM != nullptr)
+	{
+		gM->setSkins(materials[player1Selection], materials[player2Selection]);
+		gM->setMap(maps[mapSelection]);
+	}
+	else
+	{
+		std::cout << "No se ha encontrado el GameManager\n";
+	}
 }
