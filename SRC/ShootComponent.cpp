@@ -15,13 +15,9 @@
 const std::string ShootComponent::id = "ShootComponent";
 
 ShootComponent::ShootComponent() :input(Input::GetInstance()), cameraOffset(0), rotation(0), force(0), invert(0), ballRotation(0), onStart(true),
-prevGrav(0,0,0), maxForce(0), cameraOffsetWithoutY(0){
-	positioning = true;
-	strengthControl = false;
-	cam = nullptr;
-	camTransform = nullptr;
+prevGrav(0,0,0), maxForce(0), cameraOffsetWithoutY(0),positioning(true),strengthControl(false),cam(nullptr),camTransform(nullptr)
+,myRigidBody(nullptr){
 	cameraPos = forge::Vector3(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
-	myRigidBody = nullptr;
 	ballInitialPosition = forge::Vector3(0, 0, 0);
 	forward = forge::Vector3(0, 0, -1);
 	serializer(maxForce, "maxForce");

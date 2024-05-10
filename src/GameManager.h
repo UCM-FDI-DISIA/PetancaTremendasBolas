@@ -61,9 +61,16 @@ public:
 	~GameManager();
 
 	bool initComponent(ComponentData* data) override;
-	void initVariables();
-	void update() override;
 
+	/// <summary>
+	/// Inicializa las variables del gameManager que no se pueden inicializar en el initComponent
+	/// </summary>
+	void initVariables();
+
+	void update() override;
+	/// <summary>
+	/// Bucle de juego principal
+	/// </summary>
 	void mainLoop();
 
 	/// <summary>
@@ -81,11 +88,40 @@ public:
 	/// </summary>
 	/// <param name="player1">Para saber si se crea la bola para P1 o P2</param>
 	void createBall(bool player1);
+
+	/// <summary>
+	/// Cambia el material de la bola según la escogida
+	/// </summary>
+	/// <param name="skinP1">Material para el jugador 1</param>
+	/// <param name="skinP2">Material para el jugador 2</param>
 	void setSkins(std::string skinP1, std::string skinP2);
+
+	/// <summary>
+	/// Elije el mapa en el que se jugará
+	/// </summary>
+	/// <param name="map">Mapa para jugar</param>
 	void setMap(std::string map);
+
+	/// <summary>
+	/// Cambia la escena e inicia el juego si es un mapa jugable
+	/// </summary>
+	/// <param name="scene">Escena para comenzar</param>
 	void changeScene(std::string const& scene);
+
+	/// <summary>
+	/// Inicia la fase final del juego en la que se reinician los valores y se muestra al jugador
+	/// </summary>
 	void endGamePhase();
+
+	/// <summary>
+	/// Inicia las variables necesarias para empezar el juego
+	/// </summary>
+	/// <param name="playing">booleano para empezar o parar del juego</param>
 	void setPlaying(bool playing);
+
+	/// <summary>
+	/// Cheackea si hay colision de las bolas para el sonido
+	/// </summary>
 	void checkCollisions();
 };
 #endif // !GAME_MANAGER_H_
